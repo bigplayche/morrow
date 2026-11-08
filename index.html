@@ -1,0 +1,1434 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090B0E">
+<meta name="description" content="Daily recovery for serious athletes: readiness, stretch routines, sleep and hydration.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Morrow">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<script>window.MORROW_SITE=true;</script>
+<title>Morrow Recovery</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: left rail on desktop / bottom tab bar on phone; one calm column of instrument-like readouts per view. Dark-first. */
+:root{
+  --bg:#090B0E; --surface:#11151A; --surface-2:#181E25; --line:#232B34; --fg:#ECF1F4; --muted:#87939F; --faint:#55606B;
+  --accent:#A9D3E6; --accent-ink:#071017; --accent-soft:rgba(169,211,230,.12);
+  --good:#45C98A; --warn:#E6B24A; --bad:#E7624F;
+  --f-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Geist",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --r:14px; --r-lg:22px;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
+  --bg:#F2F4F6; --surface:#FFFFFF; --surface-2:#E9EDF1; --line:#D9E0E6; --fg:#0D1216; --muted:#5B6670; --faint:#8E99A3;
+  --accent:#23688A; --accent-ink:#FFFFFF; --accent-soft:rgba(35,104,138,.10);
+  --good:#178F57; --warn:#A97810; --bad:#C2412D; color-scheme:light}}
+:root[data-theme="light"]{
+  --bg:#F2F4F6; --surface:#FFFFFF; --surface-2:#E9EDF1; --line:#D9E0E6; --fg:#0D1216; --muted:#5B6670; --faint:#8E99A3;
+  --accent:#23688A; --accent-ink:#FFFFFF; --accent-soft:rgba(35,104,138,.10);
+  --good:#178F57; --warn:#A97810; --bad:#C2412D; color-scheme:light}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font:15px/1.5 var(--f-body);-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h1,h2,h3{font-family:var(--f-display);font-stretch:112%;font-weight:600;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.num{font-family:var(--f-display);font-stretch:125%;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.eyebrow{font:500 11px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+
+/* shell */
+.shell{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:100%}
+.rail{position:sticky;top:0;height:100vh;border-right:1px solid var(--line);padding:28px 16px;display:flex;flex-direction:column;gap:28px}
+.brand{display:flex;align-items:center;gap:10px;padding:0 10px}
+.brand b{font:700 17px var(--f-display);font-stretch:125%;letter-spacing:.06em}
+.mark{width:22px;height:22px;border-radius:50%;border:2px solid var(--accent);position:relative}
+.mark::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--accent)}
+.nav{display:flex;flex-direction:column;gap:4px}
+.nav button{display:flex;align-items:center;gap:12px;border:0;background:none;padding:10px 12px;border-radius:10px;color:var(--muted);font-weight:500;text-align:left}
+.nav button svg{width:20px;height:20px;flex:none}
+.nav button:hover{color:var(--fg);background:var(--surface)}
+.nav button[aria-current="page"]{color:var(--fg);background:var(--surface-2)}
+.rail .who{margin-top:auto;padding:12px;border-radius:12px;background:var(--surface);font-size:13px}
+main{min-width:0;padding-block:32px 120px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+.topbar{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.topbar h1{font-size:clamp(26px,4vw,34px)}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:99px;font:500 12px var(--f-mono);letter-spacing:.04em;background:var(--surface-2);color:var(--muted);border:1px solid var(--line)}
+.chip.good{color:var(--good)} .chip.warn{color:var(--warn)} .chip.bad{color:var(--bad)}
+.dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px}
+.panel h2{font-size:17px}
+.panel-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:860px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){.g2{grid-template-columns:minmax(0,1fr)}}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:99px;padding:11px 20px;border:1px solid var(--line);background:var(--surface-2);font-weight:600;font-size:14px}
+.btn:hover{border-color:var(--faint)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.ghost{background:none}
+.btn.sm{padding:7px 14px;font-size:13px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.link{background:none;border:0;color:var(--accent);font-weight:600;padding:0}
+
+/* hero readiness */
+.hero{display:grid;grid-template-columns:auto minmax(0,1fr);gap:36px;align-items:center}
+@media (max-width:720px){.hero{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center}}
+.ring{position:relative;width:230px;height:230px;max-width:100%}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring .center .num{font-size:64px;font-weight:700;line-height:1}
+.ring-arc{transition:stroke-dashoffset 1.1s cubic-bezier(.2,.8,.2,1)}
+.verdict h2{font-size:clamp(24px,3.4vw,30px);margin-top:8px}
+.verdict p{max-width:60ch;color:var(--muted);margin:10px 0 0}
+.vitals{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border-radius:var(--r);overflow:hidden;margin-top:22px}
+@media (max-width:720px){.vitals{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.vital{background:var(--surface-2);padding:14px 16px;text-align:left}
+.vital .num{font-size:26px;font-weight:600}
+.vital .unit{font:500 12px var(--f-mono);color:var(--muted);margin-left:3px}
+.delta{font:500 12px var(--f-mono)}
+.up{color:var(--good)} .down{color:var(--bad)} .flat{color:var(--muted)}
+
+.stat .num{font-size:30px;font-weight:600}
+.bar{height:6px;border-radius:9px;background:var(--surface-2);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:9px}
+
+.list{display:flex;flex-direction:column}
+.row{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-top:1px solid var(--line)}
+.row:first-child{border-top:0;padding-top:0}
+.row .body{flex:1;min-width:0}
+.row .t{font-weight:600}
+.row .s{color:var(--muted);font-size:13.5px;margin-top:2px}
+.fig{width:64px;height:52px;flex:none;border-radius:12px;background:var(--surface-2);border:0;padding:0;display:block}
+.fig svg{width:100%;height:100%;display:block}
+.figbig{width:100%;max-width:440px;aspect-ratio:120/96;background:var(--surface-2);border-radius:18px;margin:0 auto;border:0;padding:0;display:block}
+.figbig svg{width:100%;height:100%;display:block}
+@media (max-width:560px){.row .timer{display:none}.fig{width:58px;height:47px}}
+.tick{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--faint);background:none;flex:none;display:grid;place-items:center;margin-top:1px}
+.tick svg{width:14px;height:14px;opacity:0}
+.tick[aria-pressed="true"]{background:var(--good);border-color:var(--good)}
+.tick[aria-pressed="true"] svg{opacity:1;color:var(--bg)}
+.row.done .t{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--faint)}
+.tagline{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.tag{font:500 11px var(--f-mono);letter-spacing:.04em;color:var(--muted);padding:3px 7px;border-radius:6px;background:var(--surface-2)}
+.tag.warn{color:var(--warn)}
+.timer{font:500 12px var(--f-mono);border:1px solid var(--line);background:none;border-radius:99px;padding:5px 10px;color:var(--muted);flex:none}
+.timer.on{color:var(--accent);border-color:var(--accent)}
+
+.note{border-left:3px solid var(--accent);padding:10px 14px;background:var(--accent-soft);border-radius:0 10px 10px 0;font-size:14px}
+.note.warn{border-color:var(--warn);background:color-mix(in srgb,var(--warn) 10%,transparent)}
+.note.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,transparent)}
+
+.chart{width:100%;height:auto;display:block}
+.chart text{fill:var(--muted);font:10px var(--f-mono)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+.seg{display:inline-flex;background:var(--surface-2);border-radius:99px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{border:0;background:none;padding:6px 12px;border-radius:99px;font-size:13px;color:var(--muted);font-weight:500}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--fg);box-shadow:0 1px 0 var(--line)}
+
+/* hydration */
+.water{display:grid;grid-template-columns:auto minmax(0,1fr);gap:28px;align-items:center}
+@media (max-width:640px){.water{grid-template-columns:minmax(0,1fr);justify-items:center}}
+.vessel{width:130px;height:200px;border-radius:26px 26px 40px 40px;border:2px solid var(--line);position:relative;overflow:hidden;background:var(--surface-2)}
+.vessel .fill{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 80%,transparent),var(--accent));transition:height .8s cubic-bezier(.2,.8,.2,1)}
+.vessel .lvl{position:absolute;inset:0;display:grid;place-items:center;z-index:1;text-align:center}
+.vessel .lvl .num{font-size:26px;font-weight:700}
+.quick{display:flex;gap:8px;flex-wrap:wrap}
+.bottles{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap}
+.bottle{display:flex;flex-direction:column;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface-2);border-radius:14px;padding:10px 8px 8px;min-width:72px;color:var(--fg)}
+.bottle:hover{border-color:var(--accent)}
+.bottle svg{width:60px;height:120px;overflow:visible}
+.bottles.small .bottle{min-width:56px;padding:6px 6px 6px}
+.bottles.small .bottle svg{width:36px;height:72px}
+.bottle span{font-size:12px}
+.bwater{transform-box:fill-box;transform-origin:50% 100%}
+.bottle.pour svg{animation:tilt 1.1s ease-in-out}
+.bottle.pour .bwater{animation:drain 1.1s ease-in forwards}
+@keyframes tilt{0%{transform:rotate(0)}25%,70%{transform:rotate(-28deg) translateY(-4px)}100%{transform:rotate(0)}}
+@keyframes drain{0%,20%{transform:scaleY(1)}80%,100%{transform:scaleY(0)}}
+.vessel .splash{position:absolute;left:50%;top:18%;width:10px;height:10px;margin-left:-5px;border-radius:50%;border:2px solid var(--accent);animation:splash 1s ease-out forwards;z-index:2}
+@keyframes splash{0%{transform:scale(.3);opacity:1}100%{transform:scale(5);opacity:0}}
+.steps{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px;max-width:62ch}
+.steps li{padding-left:4px}
+.linkrow{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.linkrow .input{flex:1;min-width:0;font-size:13px}
+.switch{width:44px;height:26px;border-radius:99px;border:0;background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line);position:relative;flex:none;padding:0}
+.switch i{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--muted);transition:transform .2s,background .2s}
+.switch[aria-checked="true"]{background:var(--accent)}
+.switch[aria-checked="true"] i{transform:translateX(18px);background:var(--accent-ink)}
+.wakegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+
+/* coach */
+.chat{display:flex;flex-direction:column;gap:14px;min-height:320px}
+.msg{max-width:min(680px,92%);padding:12px 16px;border-radius:18px;line-height:1.55;font-size:14.5px}
+.msg.me{align-self:flex-end;background:var(--accent);color:var(--accent-ink);border-bottom-right-radius:6px}
+.msg.ai{align-self:flex-start;background:var(--surface-2);border-bottom-left-radius:6px}
+.msg.ai p{margin:0 0 8px}.msg.ai p:last-child{margin:0}
+.msg.ai ul{margin:4px 0 8px;padding-left:18px}
+.composer{display:flex;gap:8px;align-items:flex-end}
+.composer textarea{flex:1;min-width:0;resize:none;border-radius:16px;border:1px solid var(--line);background:var(--surface-2);padding:12px 14px;min-height:48px;max-height:140px}
+.suggest{display:flex;gap:8px;flex-wrap:wrap}
+.suggest button{border:1px solid var(--line);background:none;border-radius:99px;padding:7px 12px;font-size:13px;color:var(--muted)}
+.suggest button:hover{color:var(--fg);border-color:var(--faint)}
+
+/* forms */
+.field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.field label,.flabel{font-size:13px;font-weight:600;color:var(--muted)}
+.input{width:100%;border:1px solid var(--line);background:var(--surface-2);border-radius:12px;padding:12px 14px;min-width:0}
+.input:focus{border-color:var(--accent);outline:none}
+.pair{display:flex;gap:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:9px 14px;font-size:14px;font-weight:500;color:var(--fg)}
+.chips button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chips.days button{width:48px;padding:9px 0;text-align:center}
+.choice{display:grid;gap:10px}
+.choice button{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:16px 18px}
+.choice button b{font-family:var(--f-display);font-stretch:110%;font-weight:600}
+.choice button span{font-size:13px;color:var(--muted)}
+.choice button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.sports{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:10px}
+.sports button{aspect-ratio:1.25;max-width:100%;border:1px solid var(--line);background:var(--surface);border-radius:18px;padding:14px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;text-align:left}
+.sports button svg{width:30px;height:30px;color:var(--muted)}
+.sports button b{font-family:var(--f-display);font-stretch:112%;font-weight:600;font-size:15px}
+.sports button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.sports button[aria-pressed="true"] svg{color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.rangeval{font:600 22px var(--f-display);font-stretch:120%}
+
+/* onboarding */
+.ob{min-height:100%;display:flex;flex-direction:column;padding-block:28px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ob-top{max-width:720px;width:100%;margin:0 auto;display:flex;align-items:center;gap:16px}
+.progress{flex:1;height:3px;background:var(--surface-2);border-radius:3px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--accent);transition:width .5s ease}
+.ob-body{max-width:720px;width:100%;margin:40px auto 0;display:flex;flex-direction:column;gap:26px;flex:1}
+.ob-body h1{font-size:clamp(28px,5vw,40px);line-height:1.08}
+.ob-body .lead{color:var(--muted);max-width:56ch;margin:10px 0 0;font-size:16px}
+.ob-foot{max-width:720px;width:100%;margin:36px auto 0;display:flex;justify-content:space-between;gap:12px}
+.ob-section{display:flex;flex-direction:column;gap:12px}
+.welcome{max-width:1040px;margin:auto;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:48px;align-items:center;width:100%}
+@media (max-width:820px){.welcome{grid-template-columns:minmax(0,1fr);gap:28px}}
+.welcome h1{font-size:clamp(38px,7vw,68px);line-height:.98;font-stretch:125%;font-weight:700}
+.welcome .lead{font-size:17px;color:var(--muted);max-width:46ch;margin:18px 0 28px}
+.preview{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:26px;display:flex;flex-direction:column;gap:18px}
+.points{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:34px}
+@media (max-width:560px){.points{grid-template-columns:minmax(0,1fr)}}
+.points div{border-top:1px solid var(--line);padding-top:12px;font-size:13.5px;color:var(--muted)}
+.points b{display:block;color:var(--fg);font-weight:600;margin-bottom:2px}
+.injrow{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--surface);flex-wrap:wrap}
+
+/* sheet */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:40;display:flex;align-items:flex-end;justify-content:center;padding-left:max(0px,env(safe-area-inset-left,0px));padding-right:max(0px,env(safe-area-inset-right,0px))}
+@media (min-width:700px){.scrim{align-items:center}}
+.sheet{background:var(--surface);border:1px solid var(--line);width:min(560px,100%);max-height:92vh;overflow:auto;border-radius:24px 24px 0 0;padding:24px 22px calc(24px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:18px}
+@media (min-width:700px){.sheet{border-radius:24px}}
+.sheet-head{display:flex;justify-content:space-between;align-items:center}
+.x{border:0;background:var(--surface-2);width:34px;height:34px;border-radius:50%;font-size:18px;line-height:1;display:inline-grid;place-items:center;padding:0;flex:none}
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.scale button{border:1px solid var(--line);background:var(--surface-2);border-radius:10px;padding:9px 0;font-weight:600}
+.scale button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.scale-labels{display:flex;justify-content:space-between;font-size:11.5px;color:var(--faint)}
+
+.banner{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;border-radius:14px;background:var(--accent-soft);font-size:14px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(90px + env(safe-area-inset-bottom,0px));background:var(--fg);color:var(--bg);padding:10px 18px;border-radius:99px;font-weight:600;font-size:14px;z-index:60}
+.wear{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;border-top:1px solid var(--line)}
+.wear:first-child{border-top:0}
+.wlogo{width:38px;height:38px;border-radius:11px;background:var(--surface-2);display:grid;place-items:center;font:700 13px var(--f-display);font-stretch:120%;flex:none}
+
+/* mobile nav */
+@media (max-width:900px){
+  .shell{grid-template-columns:minmax(0,1fr)}
+  .rail{position:fixed;top:auto;bottom:0;left:0;right:0;height:auto;flex-direction:row;padding:8px max(8px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px));border-right:0;border-top:1px solid var(--line);background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);z-index:30}
+  .rail .brand,.rail .who{display:none}
+  .nav{flex-direction:row;justify-content:space-around;width:100%}
+  .nav button{flex-direction:column;gap:3px;font-size:10.5px;padding:6px 4px;flex:1;align-items:center}
+  .nav button[aria-current="page"]{background:none;color:var(--accent)}
+  main{padding-block:22px 110px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+/* ============================== DATA ============================== */
+const SPORTS={
+ football:{n:'Football',pos:['Quarterback','Running back','Wide receiver','Tight end','Offensive line','Defensive line','Linebacker','Cornerback','Safety','Kicker / Punter','Long snapper'],r:{hips:2,hamstrings:2,groin:1,lowback:1,shoulders:1,neck:1,ankles:1}},
+ basketball:{n:'Basketball',pos:['Point guard','Shooting guard','Small forward','Power forward','Center'],r:{ankles:2,calves:2,hips:1,quads:1,lowback:1,feet:1}},
+ soccer:{n:'Soccer',pos:['Goalkeeper','Center back','Full back / Wing back','Defensive mid','Central mid','Attacking mid','Winger','Striker'],r:{groin:2,hamstrings:2,hips:2,calves:1,ankles:1}},
+ baseball:{n:'Baseball',pos:['Starting pitcher','Relief pitcher','Catcher','First base','Second base','Shortstop','Third base','Outfield','Designated hitter'],r:{shoulders:2,tspine:2,hips:1,wrists:1,lowback:1}},
+ track:{n:'Track & field',multi:true,pos:['Sprints (100/200)','400m','Hurdles','Middle distance','Distance','Jumps','Throws','Multi-events','Race walk'],r:{hamstrings:2,calves:2,hips:2,feet:1,ankles:1}},
+ swimming:{n:'Swimming',multi:true,pos:['Freestyle sprint','Freestyle distance','Backstroke','Breaststroke','Butterfly','Individual medley','Open water'],r:{shoulders:3,tspine:2,neck:1,lowback:1,ankles:1}},
+ tennis:{n:'Tennis',pos:['Singles','Doubles','Singles & doubles'],r:{shoulders:2,wrists:1,tspine:1,lowback:1,calves:1,hips:1}},
+ hockey:{n:'Hockey',pos:['Center','Wing','Defense','Goaltender'],r:{hips:2,groin:2,lowback:1,quads:1,tspine:1}},
+ volleyball:{n:'Volleyball',pos:['Outside hitter','Opposite','Middle blocker','Setter','Libero','Defensive specialist','Beach'],r:{shoulders:2,ankles:1,quads:1,calves:1,lowback:1,tspine:1}},
+ combat:{n:'Combat sports',multi:true,pos:['Boxing','MMA','Wrestling','Brazilian jiu-jitsu','Judo','Muay Thai','Kickboxing','Taekwondo'],r:{neck:2,hips:2,shoulders:1,lowback:1,wrists:1}},
+ bodybuilding:{n:'Bodybuilding',pos:["Men's Open","Classic Physique","Men's Physique","Bikini","Figure","Women's Physique","Wellness"],r:{shoulders:1,tspine:1,hips:1,lowback:1,wrists:1,quads:1}},
+ weightlifting:{n:'Weightlifting',multi:true,pos:['Olympic weightlifting','Powerlifting','Strongman','Functional fitness'],r:{hips:2,tspine:2,ankles:2,wrists:1,shoulders:1,lowback:1}},
+ other:{n:'Other sport',pos:[],r:{hips:1,tspine:1,hamstrings:1,shoulders:1,ankles:1}}
+};
+const POSMOD=[
+ [/Quarterback/,{shoulders:2,tspine:2}],[/Offensive line|Defensive line/,{hips:1,lowback:1,neck:1,wrists:1}],
+ [/Running back|Wide receiver|Cornerback|Safety/,{hamstrings:2,groin:1}],[/Kicker/,{hips:2,groin:1,hamstrings:1}],[/Linebacker|Tight end/,{neck:1,shoulders:1}],
+ [/guard/,{ankles:1,hamstrings:1}],[/Power forward|Center$/,{lowback:1,hips:1}],
+ [/Goalkeeper/,{shoulders:2,wrists:1,hips:1}],[/Winger|Striker|Full back/,{hamstrings:1}],
+ [/pitcher/,{shoulders:2,wrists:1,tspine:1}],[/Catcher/,{hips:2,quads:1,ankles:1}],[/base|Shortstop|Outfield/,{hips:1}],
+ [/Sprints|Hurdles|400m/,{hamstrings:1,hips:1}],[/Distance|Middle|Race walk|Open water/,{calves:1,feet:1}],[/Throws/,{shoulders:2,tspine:1}],[/Jumps/,{ankles:1,quads:1}],
+ [/Breaststroke/,{groin:1,quads:1}],[/Butterfly/,{lowback:1,shoulders:1}],
+ [/Goaltender/,{hips:2,groin:2}],[/Defense$/,{lowback:1}],
+ [/Outside hitter|Opposite|Middle blocker/,{shoulders:1,ankles:1}],[/Setter/,{wrists:1}],[/Libero|Defensive spec/,{hips:1,quads:1}],
+ [/Wrestling|jiu-jitsu|Judo/,{neck:2,lowback:1}],[/Boxing|MMA|Muay|Kickboxing|Taekwondo/,{shoulders:1,wrists:1,hips:1}],
+ [/Olympic/,{wrists:1,shoulders:1}],[/Powerlifting|Strongman/,{lowback:1,hips:1}]
+];
+const REGION_N={hips:'Hips',hamstrings:'Hamstrings',groin:'Adductors',quads:'Quads & hip flexors',calves:'Calves',ankles:'Ankles',lowback:'Lower back',tspine:'Thoracic spine',shoulders:'Shoulders',neck:'Neck',wrists:'Forearms & wrists',glutes:'Glutes',feet:'Feet'};
+const LEVELS=[
+ {k:'pro',n:'Professional',d:'Paid, full-time athlete. League, tour or national team.'},
+ {k:'college',n:'Collegiate',d:'NCAA, NAIA, JUCO, U Sports or university program.'},
+ {k:'hs',n:'High school',d:'Varsity, JV or club alongside school.'},
+ {k:'dev',n:'Developing / academy',d:'Youth academy, elite club or a pathway program.'},
+ {k:'rec',n:'Recreational',d:'Competitive amateur, masters or weekend leagues.'}
+];
+const INTENSITY=['Light','Moderate','Hard','Very hard','Max'];
+const DAYS=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const PHASES=['Off-season','Pre-season','In-season','Post-season'];
+const TIMES=['Early morning','Morning','Afternoon','Evening'];
+const INJ=[{k:'neck',n:'Neck',r:'neck'},{k:'shoulder',n:'Shoulder',r:'shoulders'},{k:'elbow',n:'Elbow',r:'wrists'},{k:'wrist',n:'Wrist / hand',r:'wrists'},{k:'upperback',n:'Upper back',r:'tspine'},{k:'lowback',n:'Lower back',r:'lowback'},{k:'hip',n:'Hip / groin',r:'hips'},{k:'hamstring',n:'Hamstring',r:'hamstrings'},{k:'quad',n:'Quad / hip flexor',r:'quads'},{k:'knee',n:'Knee',r:'quads'},{k:'calf',n:'Calf / Achilles',r:'calves'},{k:'ankle',n:'Ankle / foot',r:'ankles'},{k:'concussion',n:'Concussion',r:null}];
+const INJ_STATUS=[['active','Active'],['managing','Managing'],['past','Past']];
+const MOBILITY=[['Tight hip flexors','quads'],['Limited ankle dorsiflexion','ankles'],['Tight hamstrings','hamstrings'],['Limited thoracic rotation','tspine'],['Limited overhead shoulder','shoulders'],['Tight adductors','groin'],['Limited hip rotation','hips'],['Tight calves','calves'],['Stiff lower back','lowback'],['Limited wrist extension','wrists']];
+const GOALS=['Reduce soreness faster','Improve sleep quality','Feel fresher day to day','Stay injury-free','Return from injury','Improve mobility','Manage in-season fatigue','Peak for competition','Handle travel & time zones','Body composition / making weight'];
+const METHODS=[['cold','Cold water immersion'],['heat','Heat & sauna'],['compression','Compression'],['soft','Massage & soft tissue'],['mobility','Mobility & stretching'],['breath','Breathwork & NSDR'],['sleep','Sleep extension & naps'],['pool','Pool work'],['active','Active recovery']];
+const EQUIP=[['foam','Foam roller'],['ball','Massage ball'],['gun','Massage gun'],['bands','Resistance bands'],['bar','Pull-up bar'],['plunge','Cold plunge / ice bath'],['sauna','Sauna'],['boots','Compression boots'],['pool','Pool'],['tub','Bathtub / hot tub'],['bike','Bike / erg'],['estim','E-stim / NMES'],['therapist','Athletic trainer / therapist']];
+
+/* Protocol library. kind: breath, dyn (pre-session safe), static, soft, act (activation), mod (modality), flush */
+const LIB=[
+ {id:'box',n:'Box breathing',kind:'breath',reg:[],min:3,tag:'breath',cue:'Nasal only. Inhale 4, hold 4, exhale 4, hold 4. Downshifts your nervous system before the day starts.'},
+ {id:'sigh',n:'Physiological sighs',kind:'breath',reg:[],min:2,tag:'breath',cue:'Two inhales through the nose, one long exhale through the mouth. 10–15 cycles.'},
+ {id:'nsdr',n:'NSDR body scan',kind:'breath',reg:[],min:15,tag:'breath',cue:'Lie down, eyes closed, guided body scan. Most useful after a short night, travel or a late game.'},
+ {id:'legsup',n:'Legs up the wall',kind:'breath',reg:['hamstrings','lowback'],min:5,tag:'breath',cue:'Hips close to the wall, slow breathing through the nose. Easy parasympathetic shift before bed.'},
+ {id:'walk',n:'Easy walk outside',kind:'flush',reg:[],min:20,tag:'active',cue:'Conversational pace. Morning light within an hour of waking anchors your sleep timing.'},
+ {id:'bike',n:'Flush ride',kind:'flush',reg:['quads','calves'],min:15,eq:'bike',tag:'active',cue:'Zone 1, high cadence, no resistance. Moves fluid without adding load.'},
+ {id:'pool',n:'Pool recovery',kind:'flush',reg:['shoulders','hips','calves'],min:15,eq:'pool',tag:'pool',cue:'Easy laps or deep-water running. Hydrostatic pressure helps clear swelling.'},
+ {id:'9090',n:'90/90 hip switches',kind:'dyn',reg:['hips','glutes','groin'],min:3,tag:'mobility',cue:'Sit tall, rotate knees side to side without hands. 8 slow switches, pause at end range.'},
+ {id:'wgs',n:"World's greatest stretch",kind:'dyn',reg:['hips','hamstrings','tspine','quads'],min:4,tag:'mobility',cue:'Lunge, elbow to instep, rotate and reach to the ceiling. 5 per side.',avoid:['hamstring']},
+ {id:'catcow',n:'Cat–cow to thread the needle',kind:'dyn',reg:['tspine','lowback','shoulders'],min:3,tag:'mobility',cue:'Move one vertebra at a time, then rotate under and open up. 6 per side.'},
+ {id:'ktw',n:'Knee-to-wall ankle rocks',kind:'dyn',reg:['ankles','calves'],min:3,tag:'mobility',cue:'Heel down, drive the knee over the toes to touch the wall. 12 per side.',avoid:['ankle']},
+ {id:'shcars',n:'Shoulder CARs',kind:'dyn',reg:['shoulders'],min:3,tag:'mobility',cue:'Brace the trunk, draw the biggest pain-free circle you can. 5 slow reps each way.'},
+ {id:'hipcars',n:'Hip CARs',kind:'dyn',reg:['hips','groin','glutes'],min:3,tag:'mobility',cue:'On all fours or standing, slow full circles. Nothing else moves.'},
+ {id:'openbook',n:'Open books',kind:'dyn',reg:['tspine','shoulders'],min:3,tag:'mobility',cue:'Side-lying, knees stacked, rotate the top arm open and exhale. 8 per side.'},
+ {id:'legswing',n:'Leg swings',kind:'dyn',reg:['hamstrings','groin','hips'],min:2,tag:'mobility',cue:'Front-to-back then side-to-side, building range. 12 each way.'},
+ {id:'adrock',n:'Adductor rock-backs',kind:'dyn',reg:['groin','hips'],min:3,tag:'mobility',cue:'Kneel with one leg out to the side, sit the hips back. 10 per side.',avoid:['hip']},
+ {id:'neckiso',n:'Chin tucks + neck isometrics',kind:'act',reg:['neck'],min:3,tag:'mobility',cue:'Five-second holds in 4 directions at 50% effort, then 10 chin tucks.',avoid:['concussion']},
+ {id:'bandpull',n:'Band pull-aparts & face pulls',kind:'act',reg:['shoulders','tspine'],min:3,eq:'bands',tag:'mobility',cue:'2 × 15 each. Wake up the upper back before throwing or pressing.'},
+ {id:'bridge',n:'Glute bridge holds',kind:'act',reg:['glutes','lowback','hamstrings'],min:2,tag:'mobility',cue:'3 × 20 s. Ribs down, squeeze glutes, no lower back arch.'},
+ {id:'tib',n:'Tibialis raises',kind:'act',reg:['ankles','calves','feet'],min:2,tag:'mobility',cue:'Back to the wall, lift toes high. 2 × 20. Keeps shins resilient.'},
+ {id:'inchworm',n:'Inchworm walkouts',kind:'dyn',reg:['hamstrings','shoulders','calves'],min:3,tag:'mobility',cue:'Fold forward, walk the hands out to a plank, walk the feet in. 6 slow reps.',avoid:['hamstring','shoulder','wrist']},
+ {id:'squatpry',n:'Deep squat with overhead reach',kind:'dyn',reg:['hips','ankles','groin','tspine'],min:3,tag:'mobility',cue:'Sit into a deep squat, elbows pry the knees out, then reach one arm high. 5 per side.',avoid:['knee','ankle']},
+ {id:'couch',n:'Couch stretch',kind:'static',reg:['quads'],min:4,tag:'mobility',cue:'Back knee against the wall, squeeze the glute. 90 s per side.',avoid:['knee','quad']},
+ {id:'pigeon',n:'Pigeon / figure-4',kind:'static',reg:['glutes','hips'],min:4,tag:'mobility',cue:'90 s per side. Stay tall through the chest, breathe into the hip.',avoid:['hip','knee']},
+ {id:'hamstrap',n:'Supine hamstring strap stretch',kind:'static',reg:['hamstrings'],min:3,tag:'mobility',cue:'Leg straight, pull gently to mild tension. 60 s per side, no bouncing.',avoid:['hamstring']},
+ {id:'hamfloss',n:'Active hamstring flossing',kind:'dyn',reg:['hamstrings'],min:3,tag:'mobility',cue:'Hold behind the knee, extend and bend slowly. Gentle on a recovering hamstring.'},
+ {id:'sleeper',n:'Cross-body & sleeper stretch',kind:'static',reg:['shoulders'],min:3,tag:'mobility',cue:'45 s each. Light pressure only. Throwers: never stretch into pain.',avoid:['shoulder']},
+ {id:'wrist',n:'Forearm flexor & extensor stretch',kind:'static',reg:['wrists'],min:2,tag:'mobility',cue:'30 s each direction, elbow straight.',avoid:['wrist','elbow']},
+ {id:'calf',n:'Wall calf stretch',kind:'static',reg:['calves','ankles'],min:3,tag:'mobility',cue:'45 s straight knee, 45 s bent knee. Both sides.',avoid:['calf']},
+ {id:'child',n:"Child's pose with lat reach",kind:'static',reg:['lowback','shoulders','tspine'],min:2,tag:'mobility',cue:'Walk hands to one side to open the lat. 45 s each.'},
+ {id:'twist',n:'Supine spinal twist',kind:'static',reg:['lowback','tspine','glutes'],min:3,tag:'mobility',cue:'Knees bent, let them fall to one side, shoulders stay down. 60 s per side.',avoid:['lowback']},
+ {id:'butterfly',n:'Butterfly stretch',kind:'static',reg:['groin','hips'],min:2,tag:'mobility',cue:'Soles together, sit tall, then hinge forward from the hips. 90 s.',avoid:['hip']},
+ {id:'forwardfold',n:'Seated forward fold',kind:'static',reg:['hamstrings','lowback','calves'],min:2,tag:'mobility',cue:'Legs straight, hinge from the hips, reach for the shins or feet. 90 s, breathe slowly.',avoid:['hamstring','lowback']},
+ {id:'doorpec',n:'Doorway chest stretch',kind:'static',reg:['shoulders','tspine'],min:2,tag:'mobility',cue:'Forearm on the door frame at shoulder height, step through until you feel the chest open. 45 s per side.',avoid:['shoulder']},
+ {id:'hang',n:'Dead hang',kind:'static',reg:['shoulders','tspine','lowback'],min:2,eq:'bar',tag:'mobility',cue:'3 × 20–30 s. Relaxed shoulders, decompress the spine.',avoid:['shoulder','elbow']},
+ {id:'banddist',n:'Banded hip distraction',kind:'static',reg:['hips','quads'],min:3,eq:'bands',tag:'mobility',cue:'Band high on the thigh, pulling back. Rock gently in a half-kneel, 60 s per side.'},
+ {id:'frquad',n:'Foam roll quads & lateral thigh',kind:'soft',reg:['quads','hips'],min:4,eq:'foam',tag:'soft',cue:'Slow passes, pause 20 s on tender spots.'},
+ {id:'frcalf',n:'Foam roll calves',kind:'soft',reg:['calves'],min:3,eq:'foam',tag:'soft',cue:'Cross the other leg on top for more pressure. Rotate the foot in and out.',avoid:['calf']},
+ {id:'frt',n:'Foam roller T-spine extensions',kind:'soft',reg:['tspine','shoulders'],min:3,eq:'foam',tag:'soft',cue:'Hands behind the head, extend over the roller at 3–4 levels.'},
+ {id:'frham',n:'Foam roll hamstrings & adductors',kind:'soft',reg:['hamstrings','groin'],min:4,eq:'foam',tag:'soft',cue:'Light pressure. Skip any area with an active strain.',avoid:['hamstring','hip']},
+ {id:'ballglute',n:'Ball release: glutes & piriformis',kind:'soft',reg:['glutes','hips','lowback'],min:3,eq:'ball',tag:'soft',cue:'Sit on the ball, cross the ankle over the knee, breathe into it for 60 s per side.'},
+ {id:'ballfoot',n:'Plantar ball roll',kind:'soft',reg:['feet','calves'],min:2,eq:'ball',tag:'soft',cue:'Standing, slow rolls heel to toe. 60 s per foot.'},
+ {id:'ballpec',n:'Ball release: pecs & posterior shoulder',kind:'soft',reg:['shoulders','tspine'],min:3,eq:'ball',tag:'soft',cue:'Against the wall. Keep it to a 6/10 pressure.',avoid:['shoulder']},
+ {id:'gun',n:'Percussive massage',kind:'soft',reg:['*'],min:6,eq:'gun',tag:'soft',cue:'60–90 s per muscle group, keep moving. Avoid bones, joints and any acute injury.'},
+ {id:'therapist',n:'Soft-tissue session with your therapist',kind:'soft',reg:['*'],min:30,eq:'therapist',tag:'soft',cue:'Bring today\'s focus areas and any active issues.'},
+ {id:'plunge',n:'Cold plunge',kind:'mod',reg:[],min:6,eq:'plunge',tag:'cold',cue:'10–15 °C (50–59 °F), 3–10 min total. Breathe slowly through the nose.',avoid:['concussion']},
+ {id:'contrast',n:'Contrast shower',kind:'mod',reg:[],min:10,tag:'cold',cue:'3 min hot, 1 min cold, 3 rounds. End on cold for alertness, hot before sleep.'},
+ {id:'sauna',n:'Sauna',kind:'mod',reg:[],min:20,eq:'sauna',tag:'heat',cue:'80–90 °C (176–194 °F), 15–20 min. Drink 500 ml (16 oz) with electrolytes after.',avoid:['concussion']},
+ {id:'boots',n:'Compression boots',kind:'mod',reg:['calves','quads','hamstrings'],min:25,eq:'boots',tag:'compression',cue:'Medium pressure, legs elevated. Good while you review film.'},
+ {id:'bath',n:'Warm bath with Epsom salt',kind:'mod',reg:[],min:15,eq:'tub',tag:'heat',cue:'38–40 °C, finish 60–90 min before bed. The drop in core temperature afterwards helps you fall asleep.'},
+ {id:'estim',n:'E-stim recovery setting',kind:'mod',reg:['quads','calves','hamstrings'],min:20,eq:'estim',tag:'compression',cue:'Low-frequency recovery program on the largest worked muscles.'}
+];
+const ICONS={
+ today:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 8.5 8.5" stroke-width="3"/></svg>',
+ sleep:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>',
+ hydrate:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/></svg>',
+ protocol:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/></svg>',
+ coach:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M6 18l2-2M16 8l2-2"/><circle cx="12" cy="12" r="2.5"/></svg>',
+ profile:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>',
+ check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5 9-10"/></svg>'
+};
+const SPORT_ICON={
+ football:'<ellipse cx="16" cy="16" rx="12" ry="7" transform="rotate(-35 16 16)"/><path d="m12 20 8-8M13 15l2 2M15 13l2 2M17 11l2 2"/>',
+ basketball:'<circle cx="16" cy="16" r="12"/><path d="M4 16h24M16 4v24M7.5 7.5c4 4 4 13 0 17M24.5 7.5c-4 4-4 13 0 17"/>',
+ soccer:'<circle cx="16" cy="16" r="12"/><path d="m16 10 5 3.5-2 6h-6l-2-6Z"/><path d="M16 4v6M21 13.5l6-2M19 19.5l4 5M13 19.5l-4 5M11 13.5l-6-2"/>',
+ baseball:'<circle cx="16" cy="16" r="12"/><path d="M9 6c3 3 3 17 0 20M23 6c-3 3-3 17 0 20"/>',
+ track:'<path d="M4 24h24"/><circle cx="19" cy="7" r="2.5"/><path d="m11 14 5-4 4 3 4 1M16 10l-2 7 4 3-2 5M14 17l-5 3"/>',
+ swimming:'<path d="M3 22c3 0 3-2 6-2s3 2 6 2 3-2 6-2 3 2 6 2M3 27c3 0 3-2 6-2s3 2 6 2 3-2 6-2 3 2 6 2"/><circle cx="22" cy="10" r="2.5"/><path d="m8 17 6-6 4 3 4-1"/>',
+ tennis:'<ellipse cx="13" cy="12" rx="8" ry="9" transform="rotate(-40 13 12)"/><path d="m19 18 8 8"/><circle cx="25" cy="7" r="2.5"/>',
+ hockey:'<path d="M10 4v18c0 3 2 4 5 4h9"/><ellipse cx="24" cy="21" rx="4" ry="1.5"/>',
+ volleyball:'<circle cx="16" cy="16" r="12"/><path d="M16 4c-2 6 0 12 6 15M28 18c-6-2-12 0-15 6M7 8c4 5 10 7 16 5"/>',
+ combat:'<path d="M9 14V9a4 4 0 0 1 4-4h5a5 5 0 0 1 5 5v7c0 3-2 5-5 5h-5c-2 0-4-2-4-4v-3Z"/><path d="M9 14h9M12 22v5h9v-5"/>',
+ bodybuilding:'<path d="M16 10c-3-4-9-3-10 2-1 4 3 5 5 4M16 10c3-4 9-3 10 2 1 4-3 5-5 4M12 16l1 11h6l1-11"/><circle cx="16" cy="6" r="2.5"/>',
+ weightlifting:'<path d="M3 16h26M6 10v12M9 8v16M23 8v16M26 10v12"/>',
+ other:'<circle cx="16" cy="16" r="12"/><path d="M16 9v14M9 16h14"/>'
+};
+
+/* ============================== UTIL ============================== */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const mean=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
+const sd=a=>{if(a.length<2)return 0;const m=mean(a);return Math.sqrt(mean(a.map(x=>(x-m)**2)))};
+const pad=n=>String(n).padStart(2,'0');
+const keyOf=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const todayKey=()=>keyOf(new Date());
+const dow=d=>(d.getDay()+6)%7; // Mon=0
+function hash(s){let h=2166136261;for(const c of s){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
+function rng(seed){let a=seed>>>0;return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const parseT=t=>{const[h,m]=(t||'22:30').split(':').map(Number);return h*60+m};
+const fmtT=min=>{min=((Math.round(min)%1440)+1440)%1440;let h=Math.floor(min/60),m=min%60;const ap=h>=12?'PM':'AM';h=h%12||12;return `${h}:${pad(m)} ${ap}`};
+const fmtH=h=>{const t=Math.round(h*60);return `${Math.floor(t/60)}h ${pad(t%60)}m`};
+const zoneOf=s=>s>=67?'good':s>=34?'warn':'bad';
+const zoneName=s=>s>=67?'Primed':s>=34?'Steady':'Recover';
+
+/* ============================== STATE / STORAGE ============================== */
+const LSK='morrow.v1';
+let S={profile:null,days:{},units:'imperial',updatedAt:0};
+let UI={tab:'today',ob:null,obStep:0,sheet:null,chat:[],coachBusy:false,brief:null,timers:{},toast:null};
+let store={mode:'local',ref:null,chain:Promise.resolve()};
+let saveT=null;
+try{const raw=localStorage.getItem(LSK);if(raw){const d=JSON.parse(raw);Object.assign(S,d)}}catch(e){}
+try{const t=localStorage.getItem('morrow.tab');if(t)UI.tab=t}catch(e){}
+
+function persist(){
+  S.updatedAt=Date.now();
+  if(S.profile?.sample) return; // sample athlete never saved
+  try{localStorage.setItem(LSK,JSON.stringify(S))}catch(e){}
+  clearTimeout(saveT);
+  saveT=setTimeout(()=>{
+    if(store.mode!=='cloud')return;
+    const body=JSON.parse(JSON.stringify({profile:S.profile,days:pruneDays(S.days),units:S.units,updatedAt:S.updatedAt}));
+    store.chain=store.chain.then(()=>store.ref.set(body)).catch(()=>{});
+  },900);
+}
+function pruneDays(days){const keys=Object.keys(days).sort().slice(-180);const o={};keys.forEach(k=>o[k]=days[k]);return o}
+async function initCloud(){
+  try{
+    if(!window.claude?.use)return;
+    const [db,user]=await Promise.all([window.claude.use('db'),window.claude.use('user')]);
+    if(!db||!user)return;
+    const id=await user.id(); if(!id)return;
+    const ref=db.doc(`data/users/${id}/morrow`);
+    const snap=await Promise.race([ref.get(),new Promise((_,r)=>setTimeout(()=>r(new Error('timeout')),10000))]);
+    store={mode:'cloud',ref,chain:Promise.resolve()};
+    const d=snap.exists?snap.data():null;
+    if(d&&d.profile&&(!S.profile||S.profile.sample||(d.updatedAt||0)>=(S.updatedAt||0))){
+      S={profile:d.profile,days:JSON.parse(JSON.stringify(d.days||{})),units:d.units||'imperial',updatedAt:d.updatedAt||0};
+      try{localStorage.setItem(LSK,JSON.stringify(S))}catch(e){}
+      render();
+    }else if(S.profile&&!S.profile.sample){persist()}
+  }catch(e){}
+}
+
+/* ============================== UNITS ============================== */
+const metric=()=>S.units==='metric';
+const volStr=ml=>metric()?(ml>=1000?`${(ml/1000).toFixed(1)} L`:`${Math.round(ml)} ml`):`${Math.round(ml/29.574)} oz`;
+const volNum=ml=>metric()?(ml/1000).toFixed(1):Math.round(ml/29.574);
+const volUnit=()=>metric()?'L':'oz';
+const wtStr=kg=>metric()?`${Math.round(kg)} kg`:`${Math.round(kg*2.2046)} lb`;
+const htStr=cm=>{if(metric())return `${Math.round(cm)} cm`;const i=Math.round(cm/2.54);return `${Math.floor(i/12)}′${i%12}″`};
+
+/* ============================== MODEL ============================== */
+function focusRegions(p){
+  const w={};const add=(o,m=1)=>{for(const k in o)w[k]=(w[k]||0)+o[k]*m};
+  add(SPORTS[p.sport]?.r||SPORTS.other.r);
+  (p.positions||[]).forEach(pos=>POSMOD.forEach(([re,o])=>{if(re.test(pos))add(o)}));
+  (p.mobility||[]).forEach(m=>{const f=MOBILITY.find(x=>x[0]===m);if(f)w[f[1]]=(w[f[1]]||0)+1.5});
+  (p.injuries||[]).forEach(i=>{const f=INJ.find(x=>x.k===i.area);if(f?.r&&i.status!=='active')w[f.r]=(w[f.r]||0)+1.5});
+  return Object.entries(w).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({k,v}));
+}
+const rpeOf=p=>[4,5,6.5,7.5,8.5][(p.intensity??2)];
+function plannedLoad(p,date){
+  const d=dow(date);
+  if((p.compDays||[]).includes(d)&&p.phase!=='Off-season')return{type:'competition',min:Math.round((p.duration||90)*1.1),rpe:9};
+  if((p.practiceDays||[]).includes(d))return{type:'training',min:p.duration||90,rpe:rpeOf(p)};
+  return{type:'rest',min:0,rpe:0};
+}
+function dayType(p,date){
+  const t=plannedLoad(p,date).type;
+  if(t==='competition')return'competition';
+  const tom=plannedLoad(p,addDays(date,1)).type, yest=plannedLoad(p,addDays(date,-1)).type;
+  const nc=p.nextComp?new Date(p.nextComp+'T12:00'):null;
+  if(nc&&keyOf(nc)===keyOf(addDays(date,1)))return'pre';
+  if(nc&&keyOf(nc)===keyOf(date))return'competition';
+  if(tom==='competition'&&p.phase!=='Off-season')return'pre';
+  if(yest==='competition'&&p.phase!=='Off-season')return'post';
+  return t;
+}
+const DAYTYPE_N={competition:'Competition day',pre:'Day before competition',post:'Day after competition',training:'Training day',rest:'Recovery day'};
+
+/* ============================== SLEEP SETTINGS ============================== */
+const DEFAULT_ROUTINE=[
+ {id:'meal',text:'Finish your last big meal',before:120,on:true},
+ {id:'screens',text:'Screens off, lights dim and warm',before:60,on:true},
+ {id:'shower',text:'Warm shower or bath',before:60,on:true},
+ {id:'stretch',text:'Night stretch routine',before:45,on:true},
+ {id:'room',text:'Bedroom cool (60–67 °F), dark and quiet',before:30,on:true},
+ {id:'breathe',text:'Breathwork or reading in bed',before:10,on:true}
+];
+function sleepCfg(p){
+  const c={goalMode:'auto',goalH:8.5,wakeMode:'same',wakeDays:Array(7).fill(p.wake||'06:45'),latency:15,loadAdj:true,debtAdj:true,caffeine:'14:00',caffeineOn:true,temp:65,routine:DEFAULT_ROUTINE,...(p.sleep||{}),loadAdj:true,debtAdj:true};
+  return c;
+}
+function autoNeed(p){const a=p.age||22;return a<18?9:a<=25?8.5:8}
+function sleepNeed(p){const c=sleepCfg(p);return c.goalMode==='custom'?+c.goalH:autoNeed(p)}
+const usualSleep=p=>Math.max(4,((parseT(p.wake)-parseT(p.bed)+1440)%1440)/60-.33);
+function wakeFor(p,date){const c=sleepCfg(p);return c.wakeMode==='perday'?c.wakeDays[dow(date)]:p.wake}
+const tempStr=f=>metric()?`${Math.round((f-32)/1.8)} °C`:`${f} °F`;
+
+/* Last 42 days from what the athlete logs. Past sessions that weren't logged are estimated from the training schedule. */
+function buildSeries(p,N=42){
+  const need=sleepNeed(p);
+  const out=[];const today=new Date();today.setHours(12,0,0,0);
+  for(let i=N-1;i>=0;i--){
+    const date=addDays(today,-i),k=keyOf(date),log=S.days[k]||{};
+    const pl=plannedLoad(p,date);
+    let sess=log.session?{...log.session}:null,est=false;
+    if(!sess&&i>0&&pl.min){sess={min:pl.min,rpe:Math.round(pl.rpe)};est=true}
+    const ck=log.checkin||null;
+    out.push({k,date,planned:pl,sess,est,load:sess?sess.min*sess.rpe:0,checkin:ck,sleepH:ck?+ck.sleepH:null,nap:log.nap||0,done:log.done||[],water:log.water||0});
+  }
+  out.forEach((d,i)=>{
+    const w7=out.slice(Math.max(0,i-6),i+1).map(x=>x.load),w28=out.slice(Math.max(0,i-27),i+1).map(x=>x.load);
+    d.acute=mean(w7);d.chronic=mean(w28);d.acwr=d.chronic>0?d.acute/d.chronic:1;
+    d.debt=out.slice(Math.max(0,i-6),i+1).reduce((a,x)=>a+(x.sleepH!=null?Math.max(0,need-x.sleepH-x.nap/60):0),0);
+    d.sleepPerf=d.sleepH!=null?Math.round(clamp(d.sleepH/need,0,1)*100):null;
+    const c=d.checkin;
+    if(!c){d.recovery=null;return}
+    const prev=out[i-1]||d;
+    const sp=clamp(d.sleepH/need,0,1);
+    const f=x=>(x-1)/4;
+    let s=.34*Math.pow(sp,1.4)+.14*f(c.quality||3)+.2*(1-f(c.soreness||3))+.17*f(c.energy||3)+.15*(1-f(c.stress||3));
+    let pen=clamp((prev.acwr-1.25)*30,0,14);
+    if(prev.chronic>0)pen+=clamp((prev.load/prev.chronic-1.6)*6,0,8);
+    d.recovery=Math.round(clamp(100*s-pen,3,99));
+    d.penalty=Math.round(pen);
+  });
+  return out;
+}
+
+/* What works for you: change in next-morning recovery after each method */
+function learnEffects(series){
+  const by={};
+  for(let i=0;i<series.length-1;i++){
+    const d=series[i],n=series[i+1];if(!d.done.length||d.recovery==null||n.recovery==null)continue;
+    const tags=new Set(d.done.map(id=>LIB.find(x=>x.id===id)?.tag).filter(Boolean));
+    const delta=n.recovery-d.recovery;
+    tags.forEach(t=>{(by[t]=by[t]||[]).push(delta)});
+  }
+  return Object.entries(by).map(([t,a])=>({t,n:a.length,avg:mean(a)})).sort((a,b)=>b.avg-a.avg);
+}
+
+const TAG_N={cold:'Cold exposure',heat:'Heat',compression:'Compression',soft:'Soft tissue',mobility:'Mobility work',breath:'Breathwork & NSDR',pool:'Pool work',active:'Active recovery'};
+
+function buildPlan(p,today,series){
+  const dt=dayType(p,new Date());
+  const zone=today.recovery==null?'warn':zoneOf(today.recovery);
+  const regions=focusRegions(p);
+  (today.checkin?.sore||[]).forEach(r=>{const f=regions.find(x=>x.k===r);if(f)f.v+=4;else regions.push({k:r,v:4})});
+  regions.sort((a,b)=>b.v-a.v);
+  const focus=regions.slice(0,4).map(r=>r.k);
+  const eq=new Set(p.equipment||[]);
+  const activeInj=(p.injuries||[]).filter(i=>i.status==='active').map(i=>i.area);
+  const prefs=new Set(p.methods||[]);
+  const learned={};learnEffects(series).forEach(e=>{if(e.n>=3)learned[e.t]=e.avg});
+  const hyper=(p.goals||[]).includes('Body composition / making weight')||['bodybuilding'].includes(p.sport)||(p.positions||[]).some(x=>/Powerlifting|Strongman/.test(x));
+  const ok=it=>(!it.eq||eq.has(it.eq))&&!(it.avoid||[]).some(a=>activeInj.includes(a));
+  const score=it=>{let s=0;it.reg.forEach(r=>{const f=regions.find(x=>x.k===r);if(f)s+=f.v});if(it.reg.includes('*'))s+=3;if(prefs.has(it.tag))s+=2;s+=(learned[it.tag]||0)*.4;return s};
+  const used=new Set();
+  const pick=(kinds,n,extra=()=>true)=>{
+    const c=LIB.filter(it=>kinds.includes(it.kind)&&ok(it)&&!used.has(it.id)&&extra(it)).sort((a,b)=>score(b)-score(a)).slice(0,n);
+    c.forEach(x=>used.add(x.id));return c;
+  };
+  const byId=id=>LIB.find(x=>x.id===id);
+  const sessions=[];const notes=[];
+  // Daily routines first so they stay the same from day to day
+  used.add('box');used.add('sigh');used.add('legsup');
+  const morning=[byId('box'),...pick(['dyn','act'],5,it=>!it.eq)];
+  const nightStretch=pick(['static'],5,it=>!it.eq);
+  // Day-specific session
+  let mid=null;
+  if(dt==='competition'){
+    mid={id:'post',t:'Post-competition reset',when:'Within 60 min of the final whistle',items:[...pick(['flush'],1),...pick(['soft'],2,it=>it.id!=='therapist'),...pick(['mod'],1,it=>it.tag==='cold'||it.tag==='compression')]};
+    notes.push({c:'',t:'Competition day: keep the morning routine dynamic and save long static holds for tonight.'});
+  }else if(dt==='training'||dt==='pre'){
+    const mods=pick(['mod'],1,it=>{if(hyper&&it.id==='plunge')return false;return it.tag!=='heat'});
+    mid={id:'post',t:dt==='pre'?'Sharpen & unload':'Post-training recovery',when:'After your session',items:[...pick(['soft'],2,it=>it.id!=='therapist'),...pick(['static'],dt==='pre'?0:1),...mods]};
+    if(hyper&&eq.has('plunge'))notes.push({c:'',t:'Cold plunge is left out after lifting days. Cold water within about 4 hours of strength work can blunt muscle gain.'});
+  }else{
+    mid={id:'active',t:dt==='post'?'Post-game flush':'Active recovery',when:'Late morning',items:[...pick(['flush'],1),...pick(['soft'],2),...pick(['static'],1),...pick(['mod'],1,it=>it.tag==='compression'||it.tag==='cold')]};
+  }
+  const heat=pick(['mod'],1,it=>it.tag==='heat'&&!(dt==='pre'&&it.id==='sauna'));
+  sessions.push({id:'am',t:'Morning stretch',when:'Every morning, right after you wake up',daily:true,items:morning});
+  if(mid&&mid.items.length)sessions.push(mid);
+  sessions.push({id:'pm',t:'Night stretch',when:'Every night, 30–60 min before bed',daily:true,items:[...heat,...nightStretch,byId('legsup'),...(zone==='bad'||dt==='post'?[byId('nsdr')]:[byId('sigh')])]});
+  if(activeInj.length){notes.push({c:'warn',t:`Modified around your active ${activeInj.map(a=>INJ.find(x=>x.k===a)?.n.toLowerCase()).join(' and ')} injury. Movements that load it were removed. Follow your medical team's plan first.`})}
+  if(activeInj.includes('concussion'))notes.push({c:'bad',t:'Concussion: heat and cold exposure are paused. Follow your graded return-to-play protocol and get medical clearance before hard training.'});
+  sessions.forEach(s=>s.min=s.items.reduce((a,b)=>a+b.min,0));
+  return{dt,zone,focus,sessions,notes};
+}
+
+function trainingCall(p,t,dt){
+  if(t.recovery==null){
+    const b={competition:'Competition day. Check in so your warm-up and fueling advice match how you feel.',pre:'Competition tomorrow. Keep today short and sharp, and protect tonight\'s sleep.',post:'Day after competition: flush, eat and sleep. Hard work waits until tomorrow.',training:'Check in to see how hard you should push in today\'s session.',rest:'Recovery day. Easy movement, good food, early night.'}[dt];
+    return{head:'How did you wake up?',body:b,c:'warn'};
+  }
+  const z=zoneOf(t.recovery);const acwr=t.acwr;
+  let head,body,c=z;
+  if(dt==='competition'){head=z==='bad'?'Compete, but manage your warm-up':'Ready to compete';body=z==='bad'?'You\'re under-recovered. Extend the warm-up by 5–10 minutes, front-load fluids and electrolytes, and build intensity gradually.':'Stick to your routine. Prime early, eat 3–4 hours out, and keep the morning light.';}
+  else if(z==='good'){head='Cleared for high intensity';body='You slept well and your body feels good. This is the day to push speed, power or volume.';}
+  else if(z==='warn'){head='Train, with a ceiling';body='Train as planned but cap the hardest efforts around RPE 7 and trim volume about 20%. Quality over quantity.';}
+  else{head='Recovery comes first today';body='Your body is asking for a break. Keep it technical at RPE 5 or lower, or swap the session for active recovery. Tell your coach or trainer if this keeps happening.';}
+  if(acwr>1.5){body+=` Your training load jumped this week (ratio ${acwr.toFixed(2)}). Spikes above 1.5 raise soft-tissue injury risk.`;if(c==='good')c='warn'}
+  if(dt==='pre')body+=' Competition tomorrow: keep volume low and sharp, and protect tonight\'s sleep.';
+  if(dt==='post')body+=' Day after competition: flush, eat and sleep.';
+  return{head,body,c};
+}
+function hydrationPlan(p,t){
+  const kg=p.weightKg||75;
+  const sweat=p.sweatRate||[.6,.8,1.0,1.2,1.4][p.intensity??2];
+  const base=kg*35;
+  const sess=t.sess&&!t.est?t.sess:(t.planned.min?{min:t.planned.min}:null);
+  const tmin=sess?sess.min:0;
+  const train=Math.round(sweat*tmin/60*1000);
+  return{base:Math.round(base),train,total:Math.round((base+train)/50)*50,sweat,tmin,sodium:Math.round(sweat*tmin/60*900),pre:Math.round(kg*6)};
+}
+function tonight(p,t){
+  const c=sleepCfg(p),need=sleepNeed(p);
+  const load=t.sess&&!t.est?t.load:t.planned.min*t.planned.rpe;
+  const loadAdd=c.loadAdj?clamp((load-300)/600*.5,0,.75):0,debtAdd=c.debtAdj?clamp(t.debt/7*.5,0,.75):0;
+  const hrs=need+loadAdd+debtAdd,tom=addDays(new Date(),1),wake=parseT(wakeFor(p,tom));
+  return{need,loadAdd,debtAdd,hrs,wake,tom,latency:c.latency,bedBy:wake-hrs*60-c.latency};
+}
+
+/* ============================== RENDER: SHELL ============================== */
+function render(){
+  const app=$('#app');
+  if(!S.profile){app.innerHTML=renderOnboarding();afterOb();return}
+  const series=buildSeries(S.profile);
+  const t=series[series.length-1];
+  if(!['today','sleep','hydrate','protocol','coach','profile'].includes(UI.tab))UI.tab='today';
+  const views={today:viewToday,sleep:viewSleep,hydrate:viewHydrate,protocol:viewProtocol,coach:viewCoach,profile:viewProfile};
+  const tabs=[['today','Today'],['sleep','Sleep'],['hydrate','Hydration'],['protocol','Protocol'],['coach','Coach'],['profile','Profile']];
+  app.innerHTML=`<div class="shell">
+    <aside class="rail"><div class="brand"><span class="mark"></span><b>MORROW</b></div>
+      <nav class="nav" aria-label="Sections">${tabs.map(([k,n])=>`<button data-act="tab" data-v="${k}" ${UI.tab===k?'aria-current="page"':''}>${ICONS[k]}<span>${n}</span></button>`).join('')}</nav>
+      <div class="who"><div style="font-weight:600">${esc(S.profile.name)}</div><div class="muted small">${esc(S.profile.sport==='other'?S.profile.otherSport:SPORTS[S.profile.sport]?.n||'')}${S.profile.positions?.length?' · '+esc(S.profile.positions[0]):''}</div></div>
+    </aside>
+    <main><div class="wrap">
+      ${S.profile.sample?`<div class="banner"><span>You're exploring with a sample athlete. Nothing is saved.</span><button class="btn sm primary" data-act="restart">Set up my profile</button></div>`:''}${views[UI.tab](series,t)}</div></main>
+  </div>${UI.sheet?renderSheet(series,t):''}${UI.toast?`<div class="toast" role="status">${esc(UI.toast)}</div>`:''}`;
+  drawFigures(performance.now());
+  requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('.vessel .fill[data-h]').forEach(el=>el.style.height=el.dataset.h+'%')));
+  requestAnimationFrame(()=>document.querySelectorAll('.ring-arc[data-off]').forEach(el=>el.style.strokeDashoffset=el.dataset.off));
+}
+function toast(m){UI.toast=m;render();setTimeout(()=>{UI.toast=null;render()},1800)}
+
+function ring(score,size=230,stroke=16){
+  const r=(size-stroke)/2,c=2*Math.PI*r,none=score==null,off=none?c:c*(1-score/100),z=none?'line':zoneOf(score);
+  return `<div class="ring" style="width:${size}px;height:${size}px"><svg viewBox="0 0 ${size} ${size}" aria-hidden="true"><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--surface-2)" stroke-width="${stroke}"/>${none?'':`<circle class="ring-arc" data-off="${off}" cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--${z})" stroke-width="${stroke}" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c}"/>`}</svg>
+  <div class="center"><span class="num" style="font-size:${size*.28}px;${none?'color:var(--faint)':''}">${none?'—':score}</span><span class="eyebrow" style="margin-top:8px;${none?'':`color:var(--${z})`}">${none?'Not checked in':zoneName(score)}</span></div></div>`;
+}
+function barChart(items,max,{h=130,line=null,lineLabel=''}={}){
+  const W=600,H=h,pb=20,pt=14,gap=8,bw=(W-gap*(items.length-1))/items.length;
+  const y=v=>pt+(1-v/max)*(H-pt-pb);
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img">${items.map((it,i)=>{const x=i*(bw+gap);const has=it.v!=null&&it.v>0;return `${has?`<rect x="${x}" y="${y(it.v)}" width="${bw}" height="${Math.max(2,H-pb-y(it.v))}" rx="4" fill="${it.c}" opacity="${i===items.length-1?1:.8}"/>`:`<rect x="${x}" y="${H-pb-2}" width="${bw}" height="2" rx="1" fill="var(--line)"/>`}<text x="${x+bw/2}" y="${H-5}" text-anchor="middle">${it.l}</text>${has&&it.top!==undefined?`<text x="${x+bw/2}" y="${y(it.v)-5}" text-anchor="middle">${it.top}</text>`:''}`}).join('')}
+  ${line!=null?`<line x1="0" x2="${W}" y1="${y(line)}" y2="${y(line)}" stroke="var(--fg)" stroke-dasharray="4 4" opacity=".5"/><text x="${W}" y="${y(line)-5}" text-anchor="end">${lineLabel}</text>`:''}</svg>`;
+}
+const wd=d=>d.date.toLocaleDateString(undefined,{weekday:'narrow'});
+const head=(eyebrow,title,right='')=>`<div class="topbar"><div><div class="eyebrow">${eyebrow}</div><h1 style="margin-top:6px">${title}</h1></div>${right}</div>`;
+const feel=n=>['','Very low','Low','Okay','Good','Great'][n]||'—';
+const soreTxt=n=>['','Fresh','Light','Moderate','Sore','Very sore'][n]||'—';
+
+/* ============================== VIEW: TODAY ============================== */
+function viewToday(series,t){
+  const p=S.profile;
+  const plan=buildPlan(p,t,series);const call=trainingCall(p,t,plan.dt);
+  const greet=(()=>{const h=new Date().getHours();return h<12?'Good morning':h<18?'Good afternoon':'Good evening'})();
+  const hp=hydrationPlan(p,t),tn=tonight(p,t);
+  const items=plan.sessions.flatMap(s=>s.items.map(i=>({...i,sess:s.t})));
+  const left=items.filter(i=>!t.done.includes(i.id));
+  const nc=p.nextComp?Math.round((new Date(p.nextComp+'T12:00')-new Date().setHours(12,0,0,0))/864e5):null;
+  const c=t.checkin;
+  const adds=metric()?[250,500]:[237,473];
+  const acwrC=t.acwr>1.5?'bad':t.acwr>1.3||t.acwr<.8?'warn':'good';
+  return `
+  ${head(new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'}),`${greet}, ${esc(p.name.split(' ')[0])}`,`<div style="display:flex;gap:8px;flex-wrap:wrap"><span class="chip">${DAYTYPE_N[plan.dt]}</span>${nc!=null&&nc>1&&nc<60?`<span class="chip">Competition in ${nc} days</span>`:''}</div>`)}
+  ${installHidden()||p.sample?'':installPanel({dismiss:true})}
+
+  <section class="panel">
+   <div class="hero">${ring(t.recovery)}
+    <div class="verdict"><div class="eyebrow">Recovery</div><h2>${call.head}</h2><p>${call.body}</p>
+     <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap">${c?`<button class="btn" data-act="sheet" data-v="checkin">Edit check-in</button>`:`<button class="btn primary" data-act="sheet" data-v="checkin">Start check-in · 30 sec</button>`}</div>
+    </div></div>
+   ${c?`<div class="vitals">
+    <div class="vital"><div class="eyebrow">Sleep</div><div><span class="num">${Math.floor(c.sleepH)}</span><span class="unit">h</span> <span class="num">${pad(Math.round(c.sleepH*60)%60)}</span><span class="unit">m</span></div><span class="delta ${t.sleepPerf>=90?'up':t.sleepPerf>=75?'flat':'down'}">${t.sleepPerf}% of need · ${feel(c.quality).toLowerCase()} quality</span></div>
+    <div class="vital"><div class="eyebrow">Soreness</div><div class="num">${soreTxt(c.soreness)}</div><span class="delta flat">${c.sore?.length?c.sore.map(r=>REGION_N[r]).join(', '):'No hot spots'}</span></div>
+    <div class="vital"><div class="eyebrow">Energy · Stress</div><div class="num">${feel(c.energy)}</div><span class="delta flat">Stress: ${['','very low','low','moderate','high','very high'][c.stress]}</span></div>
+    <div class="vital"><div class="eyebrow">Load ratio</div><div class="num" style="color:var(--${acwrC})">${t.acwr.toFixed(2)}</div><span class="delta flat">Aim for 0.8–1.3</span></div>
+   </div>`:''}
+  </section>
+
+  <section class="panel">
+   <div class="panel-head"><div><h2>Up next</h2><div class="muted small">${items.length-left.length} of ${items.length} done today</div></div><button class="link" data-act="tab" data-v="protocol">Full protocol →</button></div>
+   ${left.length?`<div class="list">${left.slice(0,3).map(it=>`<div class="row"><button class="tick" data-act="done" data-v="${it.id}" aria-pressed="false" aria-label="Mark ${esc(it.n)} done">${ICONS.check}</button>${fig(it.id)}<div class="body"><div class="t">${esc(it.n)}</div><div class="s">${esc(it.sess)} · ${it.min} min</div></div></div>`).join('')}</div>`:`<p class="muted" style="margin:0">Everything's done for today. Good work.</p>`}
+  </section>
+
+  <div class="grid g2">
+   <section class="panel"><div class="panel-head"><h2>Hydration</h2><button class="link" data-act="tab" data-v="hydrate">Details →</button></div>
+    <div><span class="num" style="font-size:30px;font-weight:600">${volNum(t.water)}</span><span class="muted"> / ${volStr(hp.total)}</span></div>
+    <div class="bar" style="margin:12px 0 16px"><i style="width:${Math.min(100,t.water/hp.total*100)}%"></i></div>
+    ${bottleBtns(p,{small:true,max:4})}
+   </section>
+   <section class="panel"><div class="panel-head"><h2>Tonight</h2><button class="link" data-act="tab" data-v="sleep">Sleep plan →</button></div>
+    <div class="muted small">In bed by</div><div class="num" style="font-size:30px;font-weight:600">${fmtT(tn.bedBy)}</div>
+    <p class="muted small" style="margin:8px 0 0">${fmtH(tn.hrs)} of sleep before your ${fmtT(tn.wake)} alarm${t.debt>1?`, including catch-up for ${fmtH(t.debt)} of sleep debt this week`:''}.</p>
+   </section>
+  </div>
+
+  <section class="panel">
+   <div class="panel-head"><h2>Coach brief</h2>${SITE?'':UI.brief?.busy?'<span class="chip">Writing…</span>':`<button class="btn sm" data-act="brief">${UI.brief?.text?'Rewrite':'Write with AI'}</button>`}</div>
+   ${UI.brief?.text?`<div class="msg ai" style="max-width:none">${md(UI.brief.text)}</div>`:`${UI.brief?.err?`<p class="note warn" style="margin:0 0 12px">${esc(UI.brief.err)}</p>`:''}<div class="list">${ruleBrief(p,t,plan,hp,tn).map(b=>`<div class="row"><div class="body"><div class="t">${b[0]}</div><div class="s">${b[1]}</div></div></div>`).join('')}</div>`}
+  </section>
+  ${trendsPanels(series)}`;
+}
+function ruleBrief(p,t,plan,hp,tn){
+  const out=[];const c=t.checkin;
+  if(c){
+    const why=[];if(t.sleepPerf<85)why.push(`sleep covered ${t.sleepPerf}% of your need`);if(c.soreness>=4)why.push('you\'re carrying soreness');if(c.energy<=2)why.push('energy is low');if(c.stress>=4)why.push('stress is high');if(t.penalty>3)why.push('recent training load is high');
+    out.push([`${zoneName(t.recovery)} at ${t.recovery}`,why.length?`Holding you back: ${why.join(', ')}.`:'Sleep, body and mind all line up today.']);
+  }
+  out.push([`Focus areas: ${plan.focus.slice(0,3).map(f=>REGION_N[f].toLowerCase()).join(', ')}`,`Picked for ${(p.sport==='other'?p.otherSport:SPORTS[p.sport]?.n||'').toLowerCase()}${p.positions?.length?` (${p.positions.join(', ').toLowerCase()})`:''}${c?.sore?.length?' and the spots you flagged this morning':''}.`]);
+  out.push([`Drink ${volStr(hp.total)} today`,hp.tmin?`${volStr(hp.base)} baseline plus ${volStr(hp.train)} to replace about ${hp.tmin} minutes of sweat. Add about ${hp.sodium} mg of sodium around the session.`:'Baseline for your body weight on a day without a session.']);
+  out.push([`Lights out by ${fmtT(tn.bedBy)}`,`Your sleep target tonight is ${fmtH(tn.hrs)}.`]);
+  return out;
+}
+
+/* ============================== VIEW: PLAN ============================== */
+function viewProtocol(series,t){
+  const p=S.profile;const plan=buildPlan(p,t,series);
+  const total=plan.sessions.reduce((a,s)=>a+s.min,0);
+  const sess=S.days[todayKey()]?.session;
+  return `${head(`${DAYTYPE_N[plan.dt]}${t.recovery!=null?` · ${zoneName(t.recovery)} ${t.recovery}`:''}`,"Today's protocol",`<button class="btn sm" data-act="sheet" data-v="session">${sess?`Session: ${sess.min} min · RPE ${sess.rpe}`:'Log my training'}</button>`)}
+  <section class="panel"><div class="eyebrow">Focus areas · ${total} min total</div><div class="chips" style="margin-top:10px">${plan.focus.map(f=>`<span class="chip">${REGION_N[f]}</span>`).join('')}</div>
+   <p class="muted small" style="margin:12px 0 0">Your morning and night stretches stay the same each day so they become habit. They only change when you flag a sore spot or an injury changes. Tap any figure to watch the movement.</p></section>
+  ${t.recovery==null?`<div class="note">Check in on the Today tab and this protocol adjusts to how you feel.</div>`:''}
+  ${plan.notes.map(n=>`<div class="note ${n.c}">${esc(n.t)}</div>`).join('')}
+  ${plan.sessions.map(s=>`<section class="panel"><div class="panel-head"><div><h2>${s.t}</h2><div class="muted small">${s.when}</div></div><span class="chip">${s.daily?'Daily · ':''}${s.min} min</span></div>
+   <div class="list">${s.items.map(it=>{const done=t.done.includes(it.id);const tm=UI.timers[it.id];return `<div class="row ${done?'done':''}">
+     <button class="tick" data-act="done" data-v="${it.id}" aria-pressed="${done}" aria-label="Mark ${esc(it.n)} done">${ICONS.check}</button>${fig(it.id)}
+     <div class="body"><div class="t">${esc(it.n)}</div><div class="s">${esc(it.cue)}</div><div class="tagline"><span class="tag">${it.min} min</span>${it.reg.filter(r=>r!=='*').slice(0,3).map(r=>`<span class="tag">${REGION_N[r]}</span>`).join('')}${it.eq?`<span class="tag">${EQUIP.find(e=>e[0]===it.eq)?.[1]}</span>`:''}</div></div>
+     <button class="timer ${tm?'on':''}" data-act="timer" data-v="${it.id}" data-min="${it.min}" data-tm="${it.id}">${tm?fmtClock(tm.left):'Start'}</button></div>`}).join('')}</div></section>`).join('')}
+  ${!p.equipment?.length?`<div class="note">Add the recovery equipment you have in Profile to unlock soft-tissue and recovery-tool work.</div>`:''}`;
+}
+const fmtClock=s=>`${Math.floor(s/60)}:${pad(s%60)}`;
+
+/* ============================== TRENDS (on Today) ============================== */
+function trendsPanels(series){
+  const l14=series.slice(-14),recs=l14.filter(d=>d.recovery!=null);
+  return `<section class="panel"><div class="panel-head"><h2>Recovery, last 14 days</h2><span class="muted small">${recs.length?`Avg ${Math.round(mean(recs.map(d=>d.recovery)))} · `:''}${recs.length} check-ins</span></div>
+   ${barChart(l14.map(d=>({v:d.recovery,c:`var(--${zoneOf(d.recovery??0)})`,l:wd(d),top:d.recovery})),100)}</section>
+  <section class="panel"><div class="panel-head"><h2>Training load</h2><span class="muted small">Minutes × effort (RPE)</span></div>
+   ${barChart(l14.map(d=>({v:d.load,c:d.est?'color-mix(in srgb,var(--accent) 40%,var(--surface-2))':'var(--accent)',l:wd(d)})),Math.max(600,...l14.map(d=>d.load))*1.1)}
+   <div class="legend" style="margin-top:8px"><span><i style="background:var(--accent)"></i>Logged</span><span><i style="background:color-mix(in srgb,var(--accent) 40%,var(--surface-2))"></i>Estimated from your schedule</span></div></section>
+  ${insightsPanel(series)}`;
+}
+
+/* ============================== VIEW: SLEEP ============================== */
+function viewSleep(series,t){
+  const p=S.profile,cfg=sleepCfg(p),tn=tonight(p,t),need=tn.need,c=t.checkin;
+  const l14=series.slice(-14),sl=l14.filter(d=>d.sleepH!=null);
+  const day=S.days[todayKey()]||{},wind=day.wind||[],nap=day.nap||0;
+  const steps=[...(cfg.caffeineOn?[{id:'caffeine',text:'Last caffeine of the day',at:parseT(cfg.caffeine)}]:[]),
+    ...DEFAULT_ROUTINE.map(r=>({...r,at:tn.bedBy-r.before})),
+    {id:'lights',text:'Lights out',at:tn.bedBy}].sort((a,b)=>((a.at-tn.bedBy+1440+720)%1440)-((b.at-tn.bedBy+1440+720)%1440));
+  const tomName=tn.tom.toLocaleDateString(undefined,{weekday:'long'});
+  const sw=(key,on,label)=>`<div class="row"><div class="body"><div class="t">${label[0]}</div><div class="s">${label[1]}</div></div><button class="switch" role="switch" aria-checked="${on}" data-act="scfg" data-k="${key}" data-v="${!on}" aria-label="${label[0]}"><i></i></button></div>`;
+  const D=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  return `${head('Sleep',c?'Last night':'Sleep')}
+  <section class="panel"><div class="grid g4">
+   <div class="stat"><div class="eyebrow">Slept</div><div class="num" style="margin-top:6px">${c?fmtH(c.sleepH):'—'}</div><div class="small muted">${c?`${t.sleepPerf}% of your goal`:'Check in to log it'}${nap?` · +${nap}m nap`:''}</div></div>
+   <div class="stat"><div class="eyebrow">Quality</div><div class="num" style="margin-top:6px">${c?feel(c.quality):'—'}</div><div class="small muted">How it felt</div></div>
+   <div class="stat"><div class="eyebrow">Nightly goal</div><div class="num" style="margin-top:6px">${fmtH(need)}</div><div class="small muted">${cfg.goalMode==='custom'?'Set by you':'Auto for your age'}</div></div>
+   <div class="stat"><div class="eyebrow">Sleep debt</div><div class="num" style="margin-top:6px;color:var(--${t.debt>4?'bad':t.debt>2?'warn':'fg'})">${fmtH(t.debt)}</div><div class="small muted">Last 7 days, naps count</div></div>
+  </div></section>
+
+  <div class="grid g2">
+   <section class="panel"><div class="eyebrow">Tonight</div><h2 style="margin-top:8px;font-size:26px">Lights out <span class="num">${fmtT(tn.bedBy)}</span></h2>
+    <p class="muted" style="margin:10px 0 16px">Alarm ${tomName} at ${fmtT(tn.wake)}. That gives ${fmtH(tn.hrs)} of sleep after ${tn.latency} minutes to drift off.</p>
+    <div class="list">
+     <div class="row"><div class="body"><div class="t">Nightly goal</div></div><span class="mono">${fmtH(need)}</span></div>
+     ${cfg.loadAdj?`<div class="row"><div class="body"><div class="t">Extra for today's training</div></div><span class="mono">+${Math.round(tn.loadAdd*60)}m</span></div>`:''}
+     ${cfg.debtAdj?`<div class="row"><div class="body"><div class="t">Catching up on sleep debt</div></div><span class="mono">+${Math.round(tn.debtAdd*60)}m</span></div>`:''}
+    </div>
+    <div style="margin-top:16px"><div class="flabel" style="margin-bottom:8px">Took a nap today?${nap?` <span class="muted">Logged ${nap} min</span>`:''}</div>
+     <div class="quick">${[20,30,60,90].map(m=>`<button class="btn sm" data-act="nap" data-v="${m}">+${m} min</button>`).join('')}${nap?`<button class="btn sm ghost" data-act="nap" data-v="0">Clear</button>`:''}</div></div>
+   </section>
+   <section class="panel"><div class="panel-head"><h2>Tonight's wind-down</h2><span class="muted small">Times based on your alarm</span></div>
+    <div class="list">${steps.map(s=>`<div class="row" style="align-items:baseline"><span class="mono small" style="width:76px;flex:none;color:var(--accent)">${fmtT(s.at)}</span><div class="body"><div class="t" style="font-weight:500">${esc(s.text)}</div></div></div>`).join('')}</div>
+   </section>
+  </div>
+
+  <section class="panel"><div class="panel-head"><h2>Last 14 nights</h2><span class="muted small">${sl.length?`Avg ${fmtH(mean(sl.map(d=>d.sleepH)))} · `:''}dashed line is your goal</span></div>
+   ${barChart(l14.map(d=>({v:d.sleepH,c:d.sleepH>=need?'var(--accent)':d.sleepH>=need-1?'var(--warn)':'var(--bad)',l:wd(d)})),11,{h:150,line:need,lineLabel:fmtH(need)})}</section>
+
+  <section class="panel" id="sleep-settings"><h2>Sleep settings</h2><p class="muted small" style="margin:6px 0 4px">Changes save automatically and update tonight's times.</p>
+   <div class="list">
+    <div class="row" style="flex-wrap:wrap"><div class="body" style="min-width:200px"><div class="t">Nightly sleep goal</div><div class="s">${cfg.goalMode==='auto'?`Auto: ${fmtH(autoNeed(p))} for your age`:'Your own target'}</div></div>
+     <div class="seg"><button data-act="scfg" data-k="goalMode" data-v="auto" aria-pressed="${cfg.goalMode==='auto'}">Auto</button><button data-act="scfg" data-k="goalMode" data-v="custom" aria-pressed="${cfg.goalMode==='custom'}">Custom</button></div>
+     ${cfg.goalMode==='custom'?`<div style="flex-basis:100%;display:flex;align-items:center;gap:14px"><input type="range" min="6" max="11" step="0.25" value="${cfg.goalH}" data-scfg="goalH" data-lbl="lbl-goal" data-fmt="h" id="s-goal" aria-label="Sleep goal in hours" style="flex:1"><span class="rangeval" id="lbl-goal" style="min-width:90px;text-align:right">${fmtH(cfg.goalH)}</span></div>`:''}</div>
+
+    <div class="row" style="flex-wrap:wrap"><div class="body" style="min-width:200px"><div class="t">Wake-up time</div><div class="s">${cfg.wakeMode==='same'?'Same alarm every day':'A different alarm for each day'}</div></div>
+     <div class="seg"><button data-act="scfg" data-k="wakeMode" data-v="same" aria-pressed="${cfg.wakeMode==='same'}">Same daily</button><button data-act="scfg" data-k="wakeMode" data-v="perday" aria-pressed="${cfg.wakeMode==='perday'}">By day</button></div>
+     <div style="flex-basis:100%">${cfg.wakeMode==='same'?`<input class="input" type="time" id="s-wake" data-scfg="wake" value="${p.wake}" style="max-width:180px" aria-label="Wake-up time">`
+       :`<div class="wakegrid">${D.map((n,i)=>`<label class="field"><span class="flabel">${n}</span><input class="input" type="time" id="s-wake-${i}" data-scfg="wakeDay" data-i="${i}" value="${cfg.wakeDays[i]}"></label>`).join('')}</div>`}</div></div>
+
+    <div class="row" style="flex-wrap:wrap"><div class="body" style="min-width:200px"><div class="t">Time to fall asleep</div><div class="s">How long you usually lie awake before sleeping</div></div>
+     <div style="flex-basis:100%;display:flex;align-items:center;gap:14px"><input type="range" min="5" max="45" step="5" value="${cfg.latency}" data-scfg="latency" data-lbl="lbl-lat" data-fmt="m" id="s-lat" aria-label="Minutes to fall asleep" style="flex:1"><span class="rangeval" id="lbl-lat" style="min-width:90px;text-align:right">${cfg.latency} min</span></div></div>
+
+    <div class="row" style="flex-wrap:wrap"><div class="body" style="min-width:200px"><div class="t">Caffeine cut-off</div><div class="s">Caffeine stays in your system 6+ hours</div></div>
+     <span style="display:flex;gap:10px;align-items:center"><input class="input" type="time" id="s-caf" data-scfg="caffeine" value="${cfg.caffeine}" style="width:140px" ${cfg.caffeineOn?'':'disabled'} aria-label="Caffeine cut-off time"><button class="switch" role="switch" aria-checked="${cfg.caffeineOn}" data-act="scfg" data-k="caffeineOn" data-v="${!cfg.caffeineOn}" aria-label="Caffeine reminder"><i></i></button></span></div>
+
+   </div>
+
+  </section>
+  ${(p.goals||[]).includes('Handle travel & time zones')?`<section class="panel"><h2>Travel</h2><p class="muted" style="margin:8px 0 0;max-width:65ch">Flying east: move bedtime 30–60 minutes earlier for 2–3 nights before you leave and get morning light when you land. Flying west: late-afternoon light and a later bedtime. Drink about ${volStr(250)} per hour in the air.</p></section>`:''}`;
+}
+
+/* ============================== BOTTLES ============================== */
+const defaultBottles=()=>metric()?[250,500,750,1000]:[237,473,710,946];
+const bottlesOf=p=>(p.bottles&&p.bottles.length?p.bottles:defaultBottles()).slice().sort((a,b)=>a-b);
+const ozOf=ml=>ml/29.574;
+/* Draws a container whose size matches its volume. All share one scale so a 32 oz bottle is visibly 4× an 8 oz cup. */
+function bottleSVG(ml,i,small){
+  const vol=ozOf(ml);const W=60,BOT=118;
+  const scale=Math.sqrt(clamp(vol,4,80)/40);
+  let shape,inner,fillTop,top;
+  if(vol<=12){ // cup
+    const h=96*scale*1.05,wt=h*.82,wb=wt*.72;top=BOT-h;
+    shape=`M${30-wt/2} ${top} L${30-wb/2} ${BOT} L${30+wb/2} ${BOT} L${30+wt/2} ${top}`;
+    inner=`M${30-wt/2+2} ${top+h*.12} L${30-wb/2+2} ${BOT-2} L${30+wb/2-2} ${BOT-2} L${30+wt/2-2} ${top+h*.12}Z`;fillTop=top+h*.12;
+  }else{ // bottle
+    const h=108*scale,w=clamp(h*.44,14,44),sh=BOT-h*.74,nk=w*.48;top=BOT-h;
+    shape=`M${30-nk/2} ${top+h*.1} L${30-nk/2} ${sh-w*.25} Q${30-w/2} ${sh-w*.1} ${30-w/2} ${sh+w*.2} L${30-w/2} ${BOT-5} Q${30-w/2} ${BOT} ${30-w/2+5} ${BOT} L${30+w/2-5} ${BOT} Q${30+w/2} ${BOT} ${30+w/2} ${BOT-5} L${30+w/2} ${sh+w*.2} Q${30+w/2} ${sh-w*.1} ${30+nk/2} ${sh-w*.25} L${30+nk/2} ${top+h*.1}Z`;
+    inner=`M${30-w/2+2} ${sh+w*.15} L${30-w/2+2} ${BOT-3} Q${30-w/2+2} ${BOT-2} ${30-w/2+6} ${BOT-2} L${30+w/2-6} ${BOT-2} Q${30+w/2-2} ${BOT-2} ${30+w/2-2} ${BOT-3} L${30+w/2-2} ${sh+w*.15}Z`;fillTop=sh+w*.15;
+    shape+=`<rect x="${30-nk/2-1.5}" y="${top}" width="${nk+3}" height="${h*.1+1}" rx="2" fill="var(--faint)"/>`;
+    shape=`<path d="${shape.split('<rect')[0]}" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linejoin="round"/>`+'<rect'+shape.split('<rect')[1];
+  }
+  if(vol<=12)shape=`<path d="${shape}" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linejoin="round"/>`;
+  return `<svg viewBox="0 0 ${W} 120" aria-hidden="true" class="${small?'bsm':''}"><path class="bwater" d="${inner}" fill="var(--accent)" opacity=".85"/>${shape}</svg>`;
+}
+function bottleBtns(p,{small=false,max=99}={}){
+  const pour=UI.pour&&Date.now()-UI.pour.at<1200?UI.pour.ml:null;
+  return `<div class="bottles ${small?'small':''}">${bottlesOf(p).slice(0,max).map((ml,i)=>`<button class="bottle ${pour===ml?'pour':''}" data-act="water" data-v="${ml}" aria-label="Log ${volStr(ml)}">${bottleSVG(ml,i,small)}<span class="mono">+${volStr(ml)}</span></button>`).join('')}</div>`;
+}
+
+/* ============================== VIEW: HYDRATION ============================== */
+function viewHydrate(series,t){
+  const p=S.profile,hp=hydrationPlan(p,t);const pct=Math.min(100,t.water/hp.total*100);
+  const prev=UI.pour&&Date.now()-UI.pour.at<1200?Math.min(100,Math.max(0,(t.water-UI.pour.ml)/hp.total*100)):pct;
+  const wk=series.slice(-7),fav=p.favBottle||bottlesOf(p).at(-1);
+  const log=(S.days[todayKey()]||{}).wlog||[];
+  return `${head('Hydration',`${volStr(Math.max(0,hp.total-t.water))} to go`,`<button class="btn sm ghost" data-act="sheet" data-v="sweat">${p.sweatRate?'Redo':'Take'} sweat-rate test</button>`)}
+  <section class="panel"><div class="water">
+   <div class="vessel"><div class="fill" data-h="${pct}" style="height:${prev}%"></div>${UI.pour&&Date.now()-UI.pour.at<1200?'<span class="splash"></span>':''}<div class="lvl"><div><div class="num">${Math.round(pct)}%</div><div class="mono small">${volStr(t.water)}</div></div></div></div>
+   <div style="display:flex;flex-direction:column;gap:14px;min-width:0">
+    <div><div class="eyebrow">Today's target</div><div class="num" style="font-size:40px;font-weight:700;margin-top:4px">${volStr(hp.total)}</div><div class="muted small">About ${(hp.total/fav).toFixed(1)} of your ${volStr(fav)} bottles</div></div>
+    <div><div class="flabel" style="margin-bottom:8px">Tap what you just drank</div>${bottleBtns(p)}</div>
+    ${log.length?`<div><button class="btn sm ghost" data-act="wundo">Undo last (${volStr(log.at(-1))})</button></div>`:''}
+   </div></div></section>
+  <section class="panel"><div class="panel-head"><h2>My bottles</h2><span class="muted small">Drawn to scale</span></div>
+   <p class="muted small" style="margin:0 0 12px">Add the cups and bottles you actually use. Each one is drawn at its real size compared with the others.</p>
+   <div class="chips">${bottlesOf(p).map(ml=>`<span class="chip" style="padding:6px 6px 6px 12px">${volStr(ml)}${bottlesOf(p).length>1?`<button class="x" style="width:22px;height:22px;font-size:14px" data-act="bdel" data-v="${ml}" aria-label="Remove ${volStr(ml)}">×</button>`:''}</span>`).join('')}</div>
+   <form id="addbottle" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center"><input class="input" id="nb-size" type="number" inputmode="decimal" min="${metric()?50:2}" max="${metric()?2500:84}" placeholder="Size" style="width:110px" aria-label="Bottle size in ${metric()?'ml':'oz'}"><span class="muted">${metric()?'ml':'oz'}</span><button class="btn" type="submit">Add bottle</button></form>
+   <div class="quick" style="margin-top:12px">${(metric()?[330,600,946,1180]:[12,20,32,40]).map(v=>`<button class="btn sm ghost" data-act="badd" data-v="${metric()?v:Math.round(v*29.574)}">+ ${metric()?v+' ml':v+' oz'}</button>`).join('')}</div>
+  </section>
+  <section class="panel"><div class="list">
+     <div class="row"><div class="body"><div class="t">Daily baseline</div><div class="s">35 ml per kg at ${wtStr(p.weightKg)}</div></div><span class="mono">${volStr(hp.base)}</span></div>
+     <div class="row"><div class="body"><div class="t">Training sweat</div><div class="s">${hp.tmin?`${hp.tmin} min at ${hp.sweat.toFixed(2)} L/h ${p.sweatRate?'(your measured rate)':'(estimated, take the sweat test to personalise)'}`:'No session today'}</div></div><span class="mono">${volStr(hp.train)}</span></div>
+  </div></section>
+  <div class="grid g3">
+   <section class="panel"><div class="eyebrow">Before</div><h3 style="margin:8px 0 6px;font-size:18px">${volStr(hp.pre)}</h3><p class="muted small" style="margin:0">2–4 hours before training. Pale-yellow urine means you're ready.</p></section>
+   <section class="panel"><div class="eyebrow">During</div><h3 style="margin:8px 0 6px;font-size:18px">${volStr(Math.round(hp.sweat*250))} every 15 min</h3><p class="muted small" style="margin:0">${hp.tmin>60?`Over an hour, so add electrolytes: about ${Math.round(hp.sodium/Math.max(1,hp.tmin/60))} mg sodium per hour.`:'Water is enough for sessions under an hour.'}</p></section>
+   <section class="panel"><div class="eyebrow">After</div><h3 style="margin:8px 0 6px;font-size:18px">150% of weight lost</h3><p class="muted small" style="margin:0">Drink ${metric()?'1.5 L for every kg':'24 oz for every lb'} lost over the next 2–4 hours, with sodium.</p></section>
+  </div>
+  <section class="panel"><div class="panel-head"><h2>This week</h2><span class="muted small">${wk.filter(d=>d.water>=hydrationPlan(p,d).total*.95).length} of 7 days on target</span></div>
+   ${barChart(wk.map(d=>{const tg=hydrationPlan(p,d).total;return{v:d.water?Math.min(1.3,d.water/tg):null,c:d.water>=tg*.95?'var(--accent)':'color-mix(in srgb,var(--accent) 40%,var(--surface-2))',l:d.date.toLocaleDateString(undefined,{weekday:'short'}),top:Math.round(d.water/tg*100)+'%'}}),1.35,{line:1,lineLabel:'Target'})}</section>`;
+}
+
+function insightsPanel(series){
+  const eff=learnEffects(series).filter(e=>e.n>=2);
+  return `<section class="panel"><div class="panel-head"><h2>What works for you</h2></div>
+   ${eff.length?`<div class="list">${eff.map(e=>`<div class="row"><div class="body"><div class="t">${TAG_N[e.t]}</div><div class="s">Next-morning recovery ${e.avg>=0?'+':''}${e.avg.toFixed(1)} on average across ${e.n} days</div></div><span class="chip ${e.avg>=2?'good':e.avg<=-2?'bad':''}">${e.n>=3?(e.avg>=2?'Prioritised':e.avg<=-2?'Used less':'Neutral'):'Learning'}</span></div>`).join('')}</div>`
+   :`<p class="muted" style="margin:0;max-width:62ch">Check in each morning and tick off your plan. After a few days Morrow compares how you recover after each method and moves the ones that work for your body to the top of your plan.</p>`}
+  </section>`;
+}
+
+/* ============================== VIEW: COACH ============================== */
+function viewCoach(series,t){
+  if(SITE)return `${head('AI recovery coach','Coach')}<section class="panel"><h2>The AI coach lives in the Claude version</h2><p class="muted" style="margin:8px 0 16px;max-width:60ch">The chat coach runs on Claude. Open Morrow on claude.ai to ask it questions. Everything else in this app works on its own, including your daily brief on the Today tab.</p><a class="btn primary" href="${ARTIFACT_URL}" target="_blank" rel="noopener">Open the coach on claude.ai</a></section>`;
+  const sugg=['Should I go hard today?','Competition in 2 days. How do I peak?','My hamstrings feel tight. What should I change?','Plan for a road trip with a late game','I slept badly. How do I adjust today?'];
+  return `${head('AI recovery coach','Coach',UI.chat.length?'<button class="btn sm ghost" data-act="clearchat">New conversation</button>':'')}
+  <section class="panel"><div class="chat" id="chat">
+   ${UI.chat.length?'':`<div class="msg ai">I can see your check-ins, sleep, training load, hydration, injuries and today's plan. Ask me anything about getting ready for your next session.</div>`}
+   ${UI.chat.map(m=>`<div class="msg ${m.role==='user'?'me':'ai'}">${m.role==='user'?esc(m.content):md(m.content)}</div>`).join('')}
+   ${UI.coachBusy&&!UI.chat.at(-1)?.content?'<div class="msg ai muted">Thinking…</div>':''}
+  </div></section>
+  ${UI.chat.length?'':`<div class="suggest">${sugg.map(s=>`<button data-act="ask" data-v="${esc(s)}">${esc(s)}</button>`).join('')}</div>`}
+  ${UI.coachErr?`<div class="note warn">${esc(UI.coachErr)}</div>`:''}
+  <form class="composer" id="composer"><textarea class="input" id="ask" rows="1" placeholder="Ask your coach…" aria-label="Message your coach"></textarea><button class="btn primary" type="submit" ${UI.coachBusy?'disabled':''}>Send</button></form>
+  <p class="small muted" style="margin:0">Coaching guidance, not medical advice. Pain that is sharp, getting worse or lasts more than a few days needs your medical staff.</p>`;
+}
+function md(s){
+  const lines=esc(s).split('\n');let html='',inList=false;
+  for(let l of lines){l=l.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+    if(/^\s*[-•*]\s+/.test(l)){if(!inList){html+='<ul>';inList=true}html+=`<li>${l.replace(/^\s*[-•*]\s+/,'')}</li>`;continue}
+    if(inList){html+='</ul>';inList=false}
+    if(/^#{1,4}\s/.test(l)){html+=`<p><b>${l.replace(/^#+\s/,'')}</b></p>`;continue}
+    if(l.trim())html+=`<p>${l}</p>`}
+  if(inList)html+='</ul>';return html;
+}
+function coachContext(){
+  const p=S.profile;const series=buildSeries(p);const t=series.at(-1);const plan=buildPlan(p,t,series);const hp=hydrationPlan(p,t);const tn=tonight(p,t);
+  return JSON.stringify({
+    athlete:{name:p.name,age:p.age,sex:p.sex,height:htStr(p.heightCm),weight:wtStr(p.weightKg),sport:p.sport==='other'?p.otherSport:SPORTS[p.sport]?.n,positions:p.positions,level:LEVELS.find(l=>l.k===p.level)?.n,
+      sessionsPerWeek:p.freq,typicalSessionMin:p.duration,intensity:INTENSITY[p.intensity],practiceDays:(p.practiceDays||[]).map(d=>DAYS[d]),practiceTime:p.practiceTime,season:p.phase,competitionDays:(p.compDays||[]).map(d=>DAYS[d]),nextCompetition:p.nextComp,
+      usualBed:p.bed,usualWake:p.wake,injuries:(p.injuries||[]).map(i=>({area:INJ.find(x=>x.k===i.area)?.n,status:i.status})),mobilityLimits:p.mobility,goals:p.goals,preferredMethods:(p.methods||[]).map(m=>METHODS.find(x=>x[0]===m)?.[1]),equipment:(p.equipment||[]).map(e=>EQUIP.find(x=>x[0]===e)?.[1]),measuredSweatRateLph:p.sweatRate},
+    today:{date:t.k,dayType:DAYTYPE_N[plan.dt],recovery:t.recovery,zone:t.recovery!=null?zoneName(t.recovery):'not checked in yet',checkin:t.checkin?{sleepHours:t.checkin.sleepH,sleepQuality1to5:t.checkin.quality,soreness1to5:t.checkin.soreness,energy1to5:t.checkin.energy,stress1to5:t.checkin.stress,soreSpots:(t.checkin.sore||[]).map(r=>REGION_N[r])}:null,sleepNeed:fmtH(sleepNeed(p)),sleepDebt7d:fmtH(t.debt),bedtimeTarget:fmtT(tn.bedBy),acuteChronicLoadRatio:+t.acwr.toFixed(2),loggedSession:t.sess&&!t.est?t.sess:null,hydrationTarget:volStr(hp.total),fluidsSoFar:volStr(t.water),plan:plan.sessions.map(s=>({session:s.t,items:s.items.map(i=>i.n)}))},
+    last14:series.slice(-14).map(d=>({d:d.k,recovery:d.recovery,sleepH:d.sleepH,soreness:d.checkin?.soreness,energy:d.checkin?.energy,loadAU:d.load,loadEstimated:d.est})),
+    whatWorks:learnEffects(series).map(e=>({method:TAG_N[e.t],avgNextDayRecoveryChange:+e.avg.toFixed(1),days:e.n}))
+  });
+}
+const coachRules=()=>`You are Morrow, an elite personal recovery coach for a serious athlete. You combine sports science (sleep, session-RPE training load, acute:chronic workload ratio, soreness and wellness scores, hydration, mobility) with practical, sport- and position-specific coaching. The athlete does not wear any tracker, so never mention heart rate, HRV or wearables; work from their check-ins and training log.
+Style: direct, warm, confident, like a top performance coach talking to a pro. Short paragraphs or tight bullet lists. Use the athlete's real numbers. Give specific times, durations, volumes and temperatures. Use ${metric()?'metric':'US'} units. No fluff, under 220 words unless asked for a plan.
+Safety: you are not a doctor. For sharp, worsening or lasting pain, numbness, concussion symptoms or illness, tell them to see their medical staff. Respect active injuries.
+Athlete data (JSON):\n`;
+
+async function askCoach(q){
+  if(!q.trim()||UI.coachBusy)return;
+  UI.coachErr=null;UI.chat.push({role:'user',content:q.trim()});UI.coachBusy=true;render();scrollChat();
+  const sample=window.claude?.use?await window.claude.use('sample'):null;
+  if(!sample){UI.coachBusy=false;UI.chat.pop();UI.coachErr='The coach needs Claude access, which isn\'t available here. Open the app on claude.ai while signed in.';render();return}
+  const turns=UI.chat.map(m=>({role:m.role,content:m.content}));
+  turns[0]={role:'user',content:coachRules()+coachContext()+'\n\nAthlete: '+turns[0].content};
+  const reply={role:'assistant',content:''};UI.chat.push(reply);
+  try{
+    const {text}=await sample(turns,{cache:false,onText:({text})=>{reply.content=text;const els=document.querySelectorAll('#chat .msg.ai');const el=els[els.length-1];if(el){el.classList.remove('muted');el.innerHTML=md(text)}scrollChat()}});
+    reply.content=text;
+  }catch(e){if(!reply.content){UI.chat.pop();UI.chat.pop()}UI.coachErr=e?.code==='not_granted'?'Coach access was declined. You can allow it from this page\'s permissions.':e?.code==='rate_limited'?'Too many questions at once. Try again in a minute.':'The coach couldn\'t answer just now. Try again.'}
+  UI.coachBusy=false;render();scrollChat();
+}
+function scrollChat(){const c=$('#chat');if(c)c.lastElementChild?.scrollIntoView({block:'end',behavior:'smooth'})}
+async function writeBrief(){
+  UI.brief={busy:true};render();
+  const sample=window.claude?.use?await window.claude.use('sample'):null;
+  if(!sample){UI.brief={err:'The AI brief needs Claude access, which isn\'t available here. Your standard brief is below.'};render();return}
+  try{const {text}=await sample(coachRules()+coachContext()+'\n\nWrite this morning\'s brief: a one-line verdict in bold, then 4–5 bullets covering training intensity, the top recovery priority, fuel and hydration timing, and tonight\'s sleep. Under 150 words.',{cache:{}});UI.brief={text}}
+  catch(e){UI.brief={err:e?.code==='not_granted'?'Coach access was declined.':'Couldn\'t write the brief just now. Try again.'}}
+  render();
+}
+
+/* ============================== VIEW: PROFILE ============================== */
+function viewProfile(){
+  const p=S.profile;
+  const sec=(t,b,step)=>`<div class="row"><div class="body"><div class="t">${t}</div><div class="s">${b||'Not set'}</div></div><button class="link" data-act="editstep" data-v="${step}">Edit</button></div>`;
+  return `${head('Profile',esc(p.name),`<div class="seg" role="group" aria-label="Units"><button data-act="units" data-v="imperial" aria-pressed="${!metric()}">US</button><button data-act="units" data-v="metric" aria-pressed="${metric()}">Metric</button></div>`)}
+  <section class="panel"><div class="list">
+    ${sec('Personal',`${p.age} yrs · ${p.sex==='female'?'Female':p.sex==='male'?'Male':'Not specified'} · ${htStr(p.heightCm)} · ${wtStr(p.weightKg)}`,1)}
+    ${sec('Sport',`${esc(p.sport==='other'?p.otherSport||'Other':SPORTS[p.sport].n)}${p.positions?.length?' · '+esc(p.positions.join(', ')):''}`,2)}
+    ${sec('Level',LEVELS.find(l=>l.k===p.level)?.n,4)}
+    ${sec('Training',`${p.freq}×/week · ${p.duration} min · ${INTENSITY[p.intensity]} · ${(p.practiceDays||[]).map(d=>DAYS[d]).join(' ')}`,5)}
+    ${sec('Competition',`${p.phase}${p.compDays?.length?' · '+p.compDays.map(d=>DAYS[d]).join(' '):''}${p.nextComp?' · next '+new Date(p.nextComp+'T12:00').toLocaleDateString(undefined,{month:'short',day:'numeric'}):''}`,6)}
+    ${sec('Sleep',`${fmtT(parseT(p.bed))} – ${fmtT(parseT(p.wake))}`,7)}
+    ${sec('Injuries & mobility',[...(p.injuries||[]).map(i=>`${INJ.find(x=>x.k===i.area)?.n} (${i.status})`),...(p.mobility||[])].join(', ')||'None reported',8)}
+    ${sec('Recovery goals & equipment',`${(p.goals||[]).length} goals · ${(p.methods||[]).length} methods · ${(p.equipment||[]).length} pieces of equipment`,9)}
+    <div class="row"><div class="body"><div class="t">Sweat rate</div><div class="s">${p.sweatRate?`${p.sweatRate} L/h, measured`:'Estimated from your intensity'}</div></div><button class="link" data-act="sheet" data-v="sweat">Test</button></div>
+  </div></section>
+  ${installPanel()}
+  <section class="panel"><h2>Your data</h2>
+   <p class="muted small" style="margin:8px 0 14px">${store.mode==='cloud'?'Your profile and logs are saved privately to your account.':'Your profile and logs are saved on this device, in this browser. Deleting browser data erases them.'}</p>
+   ${UI.confirmReset?`<div class="note bad" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><span>Delete your profile and every log? This can't be undone.</span><span style="display:flex;gap:8px"><button class="btn sm" data-act="cancelreset">Keep</button><button class="btn sm primary" data-act="doreset" style="background:var(--bad);border-color:var(--bad)">Delete everything</button></span></div>`:`<button class="btn sm ghost" data-act="askreset">Reset profile</button>`}
+  </section>`;
+}
+
+/* ============================== SHEETS ============================== */
+function renderSheet(series,t){
+  const k=UI.sheet,p=S.profile;let body='';
+  const x=`<button class="x" data-act="close" aria-label="Close">×</button>`;
+  if(k==='checkin'){
+    const c=UI.ck;
+    const sc=(f,label,lo,hi)=>`<div class="field"><span class="flabel">${label}</span><div class="scale">${[1,2,3,4,5].map(n=>`<button type="button" data-act="ck" data-f="${f}" data-v="${n}" aria-pressed="${c[f]===n}">${n}</button>`).join('')}</div><div class="scale-labels"><span>${lo}</span><span>${hi}</span></div></div>`;
+    body=`<div class="sheet-head"><h2>Morning check-in</h2>${x}</div>
+     <div class="field"><span class="flabel">Hours slept</span><div style="display:flex;align-items:center;gap:16px"><input type="range" id="ck-sleep" min="3" max="12" step="0.25" value="${c.sleepH}" aria-label="Hours slept" style="flex:1"><span class="rangeval" id="ck-sleepv" style="min-width:96px;text-align:right">${fmtH(c.sleepH)}</span></div></div>
+     ${sc('quality','Sleep quality','Restless','Deep')}${sc('soreness','Muscle soreness','Fresh','Very sore')}${sc('energy','Energy','Drained','Electric')}${sc('stress','Stress outside training','Calm','Overloaded')}
+     <div class="field"><span class="flabel">Anything extra sore or tight? <span class="muted">(optional)</span></span><div class="chips">${Object.entries(REGION_N).map(([r,n])=>`<button type="button" data-act="cksore" data-v="${r}" aria-pressed="${(c.sore||[]).includes(r)}">${n}</button>`).join('')}</div></div>
+     <button class="btn primary" data-act="saveck">See my recovery</button>`;
+  }else if(k==='demo'){
+    const it=LIB.find(x=>x.id===UI.demo);const done=t.done.includes(it.id);const tm=UI.timers[it.id];
+    body=`<div class="sheet-head"><h2>${esc(it.n)}</h2>${x}</div>
+     ${fig(it.id,'figbig')}
+     <p style="margin:0">${esc(it.cue)}</p>
+     <div class="tagline" style="margin:0"><span class="tag">${it.min} min</span>${it.reg.filter(r=>r!=='*').map(r=>`<span class="tag">${REGION_N[r]}</span>`).join('')}${it.eq?`<span class="tag">${EQUIP.find(e=>e[0]===it.eq)?.[1]}</span>`:''}</div>
+     <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn primary" data-act="timer" data-v="${it.id}" data-min="${it.min}" data-tm="${it.id}">${tm?fmtClock(tm.left):`Start ${it.min}-min timer`}</button><button class="btn" data-act="done" data-v="${it.id}">${done?'Mark not done':'Mark done'}</button></div>`;
+  }else if(k==='session'){
+    const s=UI.sess;
+    body=`<div class="sheet-head"><h2>Log today's training</h2>${x}</div>
+     <div class="field"><label for="ss-min">Duration (minutes)</label><input class="input" id="ss-min" type="number" inputmode="numeric" value="${s.min}"></div>
+     <div class="field"><span class="flabel">How hard was the whole session? (1 = very easy, 10 = max)</span><input type="range" id="ss-rpe" min="1" max="10" value="${s.rpe}" aria-label="Session effort"><div style="display:flex;justify-content:space-between;align-items:baseline"><span class="rangeval" id="ss-rpev">${s.rpe}</span><span class="muted small" id="ss-load">${s.min*s.rpe} load units</span></div></div>
+     <button class="btn primary" data-act="savesess">Save session</button>`;
+  }else if(k==='sweat'){
+    const w=UI.sw;
+    body=`<div class="sheet-head"><h2>Sweat-rate test</h2>${x}</div>
+     <p class="muted small" style="margin:0">Weigh yourself in minimal clothing before and after a typical hour of training, towel dry first. Count everything you drank.</p>
+     <div class="grid g2" style="gap:10px">
+      <div class="field"><label for="sw-pre">Weight before (${metric()?'kg':'lb'})</label><input class="input" id="sw-pre" type="number" step="0.1" value="${w.pre||''}"></div>
+      <div class="field"><label for="sw-post">Weight after (${metric()?'kg':'lb'})</label><input class="input" id="sw-post" type="number" step="0.1" value="${w.post||''}"></div>
+      <div class="field"><label for="sw-drank">Fluid drunk (${metric()?'ml':'oz'})</label><input class="input" id="sw-drank" type="number" value="${w.drank||''}"></div>
+      <div class="field"><label for="sw-min">Duration (min)</label><input class="input" id="sw-min" type="number" value="${w.min||60}"></div></div>
+     <div class="note" id="sw-out">${sweatResult()||'Enter your numbers to see your sweat rate.'}</div>
+     <button class="btn primary" data-act="savesweat">Use this sweat rate</button>`;
+  }
+  return `<div class="scrim" data-act="scrim"><div class="sheet" role="dialog" aria-modal="true">${body}</div></div>`;
+}
+function sweatResult(){
+  const w=UI.sw;const k=metric()?1:.4536,ml=metric()?1:29.574;
+  if(!w.pre||!w.post||!w.min)return'';
+  const lossKg=(w.pre-w.post)*k,drank=(w.drank||0)*ml/1000;
+  const rate=(lossKg+drank)/(w.min/60);w.rate=rate;
+  const pct=lossKg/(w.pre*k)*100;
+  return `<b>${rate.toFixed(2)} L/h</b> sweat rate. You lost ${pct.toFixed(1)}% of body weight${pct>2?', past the 2% point where performance drops. Drink more during sessions.':'.'}`;
+}
+
+/* ============================== HOME SCREEN ============================== */
+const SITE=!!window.MORROW_SITE;
+const ARTIFACT_URL='https://claude.ai/artifact/E96imEwKrPgXTmbXerqCem';
+const APP_URL=SITE?location.origin+location.pathname:ARTIFACT_URL;
+const isInstalled=()=>{try{return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}catch(e){return false}};
+let installEvt=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installEvt=e;if(S.profile)render()});
+function platform(){const u=navigator.userAgent||'';if(/iPhone|iPad|iPod/.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1))return'ios';if(/Android/.test(u))return'android';return'desktop'}
+function installSteps(pf){
+  if(pf==='ios')return['Open the link in <b>Safari</b>. If you are inside the Claude app, tap the share icon and choose <b>Open in Safari</b> first.','Tap the <b>Share</b> button (the square with an arrow) at the bottom of the screen.','Scroll down and tap <b>Add to Home Screen</b>.','Name it <b>Morrow</b> and tap <b>Add</b>.'];
+  if(pf==='android')return['Open the link in <b>Chrome</b>. If you are inside the Claude app, open it in your browser first.','Tap the <b>⋮</b> menu in the top-right corner.','Tap <b>Add to Home screen</b>.','Name it <b>Morrow</b> and tap <b>Add</b>.'];
+  return['Open this link on your phone. Use the copy button or send it to yourself.','<b>iPhone:</b> in Safari, tap Share, then <b>Add to Home Screen</b>.','<b>Android:</b> in Chrome, tap ⋮, then <b>Add to Home screen</b>.'];
+}
+function installPanel({dismiss=false}={}){
+  if(isInstalled())return'';
+  const pf=platform();
+  if(installEvt)return `<section class="panel install"><div class="panel-head"><div><h2>Install Morrow</h2><div class="muted small">Adds Morrow to your home screen as an app.</div></div>${dismiss?`<button class="x" data-act="installhide" aria-label="Hide">×</button>`:''}</div><button class="btn primary" data-act="install">Install app</button></section>`;
+  return `<section class="panel install"><div class="panel-head"><div><h2>Put Morrow on your home screen</h2><div class="muted small">One tap every morning, like any other app.</div></div>${dismiss?`<button class="x" data-act="installhide" aria-label="Hide">×</button>`:''}</div>
+   <ol class="steps">${installSteps(pf).map(x=>`<li>${x}</li>`).join('')}</ol>
+   <div class="linkrow"><input class="input mono" id="applink" value="${APP_URL}" readonly aria-label="Morrow link"><button class="btn primary" data-act="copylink">Copy link</button></div>
+  </section>`;
+}
+function installHidden(){try{return localStorage.getItem('morrow.installHidden')==='1'}catch(e){return false}}
+/* ============================== MOVEMENT DEMOS ==============================
+   Stick-figure demos. Angles in degrees: 0 points down, 90 forward (right), 180 up, -90 back (left). */
+const SEG={T:26,H:6,UA:14,FA:13,TH:20,SH:20,FT:6},GROUND=90;
+const BASE={x:60,t:180,n:0,a1:8,e1:12,a2:-8,e2:12,h1:0,k1:0,h2:0,k2:0,f1:90,f2:90};
+const Q=o=>({...BASE,...o});
+const SUP=o=>Q({t:-90,a1:90,e1:0,a2:88,e2:0,h1:90,h2:90,...o});            // lying on back, head left
+const QD=o=>Q({x:48,t:90,a1:0,e1:0,a2:0,e2:0,h1:0,k1:-90,h2:0,k2:-90,f1:0,f2:0,...o}); // hands and knees
+const KN=o=>Q({h1:90,k1:-90,h2:0,k2:-90,f2:0,a1:60,e1:20,a2:60,e2:20,...o}); // half kneeling
+const SIT=o=>Q({x:50,a1:20,e1:30,a2:20,e2:30,h1:90,h2:90,...o});            // seated, legs forward
+const ANIM={
+ box:{pacer:'box'},sigh:{pacer:'sigh'},
+ nsdr:{f:[SUP({a1:100,a2:98}),SUP({a1:96,a2:94,n:-5})],d:3},
+ legsup:{f:[SUP({h1:180,h2:178,f1:20,f2:20,a1:-100,e1:20,a2:-95,e2:20}),SUP({h1:180,h2:178,f1:55,f2:55,a1:-100,e1:20,a2:-95,e2:20})],d:1.4,props:[{w:'wall',x:64}]},
+ walk:{f:[Q({h1:25,k1:-5,h2:-20,k2:-30,a1:-25,a2:25,e1:20,e2:20}),Q({h1:-20,k1:-30,h2:25,k2:-5,a1:25,a2:-25,e1:20,e2:20})],d:.55},
+ bike:{loop:true,y:46,f:[Q({x:52,t:150,a1:70,e1:-10,a2:70,e2:-10,h1:45,k1:-25,h2:100,k2:-120}),Q({x:52,t:150,a1:70,e1:-10,a2:70,e2:-10,h1:75,k1:-60,h2:70,k2:-100}),Q({x:52,t:150,a1:70,e1:-10,a2:70,e2:-10,h1:100,k1:-120,h2:45,k2:-25}),Q({x:52,t:150,a1:70,e1:-10,a2:70,e2:-10,h1:70,k1:-100,h2:75,k2:-60})],d:.3,props:[{w:'bike'}]},
+ pool:{loop:true,y:50,f:[Q({x:52,t:90,n:8,h1:-85,h2:-95,k1:0,k2:0,f1:0,f2:0,a1:90,a2:-90,e1:0,e2:0}),Q({x:52,t:90,n:8,h1:-95,h2:-85,k1:0,k2:0,f1:0,f2:0,a1:0,a2:-180,e1:0,e2:0}),Q({x:52,t:90,n:8,h1:-85,h2:-95,k1:0,k2:0,f1:0,f2:0,a1:-90,a2:90,e1:0,e2:0}),Q({x:52,t:90,n:8,h1:-95,h2:-85,k1:0,k2:0,f1:0,f2:0,a1:-180,a2:0,e1:0,e2:0})],d:.45,props:[{w:'water',y:46}]},
+ '9090':{f:[Q({x:50,a1:40,e1:40,a2:40,e2:40,h1:92,k1:-175,h2:150,k2:-140}),Q({x:50,a1:40,e1:40,a2:40,e2:40,h1:150,k1:-140,h2:92,k2:-175})],d:1.2},
+ wgs:{f:[Q({x:52,t:140,h1:75,k1:-75,h2:-40,k2:-10,f2:60,a1:10,e1:0,a2:10,e2:0}),Q({x:52,t:155,h1:75,k1:-75,h2:-40,k2:-10,f2:60,a1:180,e1:0,a2:10,e2:0})],d:1.5},
+ catcow:{f:[QD({n:25,t:93}),QD({n:-30,t:86}),QD({t:80,n:-40,a1:-60})],d:1.4},
+ ktw:{f:[KN({x:58,a1:90,e1:-20,a2:90,e2:-20}),KN({x:58,h1:75,k1:-55,t:172,a1:85,e1:-20,a2:85,e2:-20})],d:1,props:[{w:'wall',x:100}]},
+ shcars:{loop:true,f:[Q({a1:0,e1:0}),Q({a1:90,e1:0}),Q({a1:180,e1:0}),Q({a1:-90,e1:0})],d:.8},
+ hipcars:{loop:true,f:[Q({a2:60,e2:30}),Q({a2:60,e2:30,h1:90,k1:-90}),Q({a2:60,e2:30,h1:40,k1:-100}),Q({a2:60,e2:30,h1:-25,k1:-60})],d:.8},
+ openbook:{f:[SUP({h1:135,k1:-115,h2:135,k2:-115,a1:100}),SUP({h1:135,k1:-115,h2:135,k2:-115,a1:180}),SUP({h1:135,k1:-115,h2:135,k2:-115,a1:-110})],d:1.3},
+ legswing:{f:[Q({a2:90,e2:0,h1:55,k1:-5}),Q({a2:90,e2:0,h1:-35,k1:-10})],d:.7},
+ adrock:{f:[QD({}),QD({h1:50,k1:-140,h2:50,k2:-140,t:100,a1:35,a2:35})],d:1.3},
+ neckiso:{f:[Q({a1:160,e1:110,n:0}),Q({a1:160,e1:110,n:25}),Q({a1:160,e1:110,n:-20})],d:1.2},
+ bandpull:{f:[Q({a1:90,e1:0,a2:88,e2:0}),Q({a1:125,e1:145,a2:123,e2:145})],d:1,props:[{w:'band',to:[114,46]}]},
+ bridge:{f:[SUP({x:58,h1:135,k1:-115,h2:135,k2:-115}),SUP({x:58,t:-65,h1:110,k1:-95,h2:110,k2:-95})],d:1.4},
+ tib:{f:[Q({t:186,f1:90,f2:90}),Q({t:186,f1:125,f2:125})],d:.7,props:[{w:'wall',x:52}]},
+ couch:{f:[KN({x:62,h2:-15,k2:-145,f2:90,a1:60,e1:20,a2:60,e2:20}),KN({x:62,t:194,h2:-15,k2:-145,f2:90,a1:50,e1:30,a2:50,e2:30})],d:1.6,props:[{w:'wall',x:47}]},
+ pigeon:{f:[Q({x:55,t:175,h1:80,k1:-150,h2:-90,k2:0,f2:0,a1:10,e1:0,a2:10,e2:0}),Q({x:55,t:105,h1:80,k1:-150,h2:-90,k2:0,f2:0,a1:100,e1:0,a2:100,e2:0})],d:2},
+ hamstrap:{f:[SUP({x:55,h1:145,a1:130,e1:0}),SUP({x:55,h1:172,a1:150,e1:0})],d:2,props:[{w:'strap'}]},
+ hamfloss:{f:[SUP({x:55,h1:180,k1:-90,a1:150,e1:20}),SUP({x:55,h1:180,k1:-8,a1:150,e1:20})],d:1},
+ sleeper:{f:[Q({a1:92,e1:0,a2:115,e2:55}),Q({a1:100,e1:0,a2:120,e2:65,n:-8})],d:1.5},
+ wrist:{f:[Q({a1:90,e1:0,a2:70,e2:30}),Q({a1:90,e1:0,a2:72,e2:40})],d:1.5},
+ calf:{f:[Q({x:58,t:150,a1:105,e1:0,a2:105,e2:0,h1:20,k1:-30,h2:-25,k2:0,f2:115}),Q({x:60,t:140,a1:100,e1:0,a2:100,e2:0,h1:20,k1:-35,h2:-32,k2:0,f2:122})],d:2,props:[{w:'wall',x:100}]},
+ child:{f:[Q({x:50,t:78,h1:55,k1:-145,f1:0,h2:55,k2:-145,f2:0,a1:95,e1:0,a2:95,e2:0}),Q({x:48,t:72,h1:55,k1:-145,f1:0,h2:55,k2:-145,f2:0,a1:100,e1:0,a2:100,e2:0})],d:2.5},
+ hang:{y:60,f:[Q({a1:180,e1:0,a2:178,e2:0,h1:3,h2:-3,f1:30,f2:30}),Q({a1:178,e1:0,a2:180,e2:0,h1:-3,h2:3,f1:30,f2:30})],d:2,props:[{w:'bar',y:7}]},
+ banddist:{f:[KN({x:60}),KN({x:64,h1:70,k1:-60,t:175})],d:1.4,props:[{w:'band',from:'H',to:[10,58]}]},
+ inchworm:{f:[Q({x:56,t:12,a1:5,e1:0,a2:5,e2:0}),Q({x:48,t:85,h1:-95,h2:-95,f1:95,f2:95,a1:0,e1:0,a2:0,e2:0})],d:1.6},
+ squatpry:{f:[Q({t:160,h1:80,k1:-95,h2:80,k2:-95,a1:60,e1:80,a2:60,e2:80}),Q({t:150,h1:80,k1:-95,h2:80,k2:-95,a1:180,e1:0,a2:60,e2:80})],d:1.6},
+ twist:{f:[SUP({h1:150,k1:-120,h2:150,k2:-120,a1:-90,a2:-80}),SUP({h1:100,k1:-110,h2:105,k2:-110,a1:-90,a2:-80})],d:2.5},
+ butterfly:{f:[SIT({t:180,h1:115,k1:-175,h2:110,k2:-172,a1:20,e1:10,a2:20,e2:10}),SIT({t:150,h1:105,k1:-170,h2:100,k2:-168,a1:40,e1:10,a2:40,e2:10})],d:2},
+ forwardfold:{f:[SIT({t:165,a1:60,e1:0,a2:60,e2:0}),SIT({t:112,a1:88,e1:0,a2:88,e2:0})],d:2},
+ doorpec:{f:[Q({a1:-80,e1:-100}),Q({t:170,a1:-80,e1:-100,h1:20,k1:-10})],d:2,props:[{w:'wall',x:40}]},
+ frquad:{y:78,f:[Q({x:50,t:95,a1:0,e1:90,a2:0,e2:90,h1:-90,h2:-90,f1:90,f2:90}),Q({x:58,t:95,a1:0,e1:90,a2:0,e2:90,h1:-90,h2:-90,f1:90,f2:90})],d:1.2,props:[{w:'roller',x:38}]},
+ frcalf:{f:[SIT({x:44,t:198,a1:-15,e1:0,a2:-15,e2:0}),SIT({x:52,t:198,a1:-15,e1:0,a2:-15,e2:0})],d:1.2,props:[{w:'roller',x:80}]},
+ frham:{f:[SIT({x:44,t:198,a1:-15,e1:0,a2:-15,e2:0}),SIT({x:52,t:198,a1:-15,e1:0,a2:-15,e2:0})],d:1.2,props:[{w:'roller',x:58}]},
+ frt:{f:[SUP({x:66,t:-80,h1:135,k1:-115,h2:135,k2:-115,a1:-130,e1:-50,a2:-130,e2:-50}),SUP({x:66,t:-62,h1:125,k1:-110,h2:125,k2:-110,a1:-130,e1:-50,a2:-130,e2:-50})],d:1.4,props:[{w:'roller',x:48}]},
+ ballglute:{f:[SIT({t:200,a1:-20,e1:0,a2:-20,e2:0,h1:120,k1:-112,h2:92,k2:0}),SIT({x:53,t:200,a1:-20,e1:0,a2:-20,e2:0,h1:120,k1:-112,h2:92,k2:0})],d:1,props:[{w:'ball',at:'H'}]},
+ ballfoot:{f:[Q({h1:14,k1:-10,a2:60,e2:30}),Q({h1:22,k1:-18,a2:60,e2:30})],d:.9,props:[{w:'ball',at:'A1'}]},
+ ballpec:{f:[Q({t:174,a1:20,e1:20}),Q({x:62,t:172,a1:20,e1:20})],d:1,props:[{w:'wall',x:74},{w:'ball',at:'S',dx:8,dy:6}]},
+ gun:{y:56,f:[Q({x:46,h1:90,k1:-90,h2:90,k2:-90,a1:60,e1:-20,a2:20,e2:40}),Q({x:46,h1:90,k1:-90,h2:90,k2:-90,a1:40,e1:20,a2:20,e2:40})],d:.5,props:[{w:'bench'}]},
+ therapist:{y:58,f:[Q({x:50,t:90,a1:-60,e1:0,a2:-60,e2:0,h1:-90,h2:-90,f1:90,f2:90}),Q({x:50,t:90,n:-5,a1:-62,e1:0,a2:-62,e2:0,h1:-90,h2:-90,f1:90,f2:90})],d:3,props:[{w:'table'}]},
+ plunge:{f:[SIT({x:50,h1:120,k1:-110,h2:118,k2:-108,a1:60,e1:40,a2:60,e2:40}),SIT({x:50,t:182,h1:120,k1:-110,h2:118,k2:-108,a1:62,e1:40,a2:62,e2:40})],d:3,props:[{w:'tub'},{w:'water',y:62}]},
+ contrast:{f:[Q({a1:150,e1:100,a2:150,e2:100,n:-10}),Q({a1:150,e1:110,a2:150,e2:110,n:-6})],d:2,props:[{w:'shower'}]},
+ sauna:{y:62,f:[Q({x:50,t:178,h1:90,k1:-90,h2:90,k2:-90,a1:20,e1:40,a2:20,e2:40}),Q({x:50,t:176,n:-6,h1:90,k1:-90,h2:90,k2:-90,a1:20,e1:42,a2:20,e2:42})],d:3,props:[{w:'bench'},{w:'steam'}]},
+ boots:{f:[SIT({x:44,t:205,a1:-20,e1:0,a2:-20,e2:0}),SIT({x:44,t:206,a1:-20,e1:0,a2:-20,e2:0})],d:1.5,props:[{w:'boots'}]},
+ bath:{f:[SIT({x:46,t:235,h1:80,k1:-30,h2:80,k2:-30,a1:-60,e1:0,a2:-60,e2:0}),SIT({x:46,t:236,n:-5,h1:80,k1:-30,h2:80,k2:-30,a1:-60,e1:0,a2:-60,e2:0})],d:3,props:[{w:'tub'},{w:'water',y:70}]},
+ estim:{y:62,f:[Q({x:50,h1:90,k1:-90,h2:90,k2:-90,a1:20,e1:40,a2:20,e2:40}),Q({x:50,h1:90,k1:-90,h2:90,k2:-90,a1:20,e1:42,a2:20,e2:42})],d:.8,props:[{w:'bench'},{w:'pads'}]}
+};
+const dv=a=>{const r=a*Math.PI/180;return[Math.sin(r),Math.cos(r)]};
+const ext=(p,a,l)=>{const d=dv(a);return[p[0]+d[0]*l,p[1]+d[1]*l]};
+function joints(P,fixedY){
+  const H=[0,0],S=ext(H,P.t,SEG.T),Hd=ext(S,P.t+P.n,SEG.H+3);
+  const E1=ext(S,P.a1,SEG.UA),W1=ext(E1,P.a1+P.e1,SEG.FA),E2=ext(S,P.a2,SEG.UA),W2=ext(E2,P.a2+P.e2,SEG.FA);
+  const K1=ext(H,P.h1,SEG.TH),A1=ext(K1,P.h1+P.k1,SEG.SH),T1=ext(A1,P.h1+P.k1+P.f1,SEG.FT);
+  const K2=ext(H,P.h2,SEG.TH),A2=ext(K2,P.h2+P.k2,SEG.SH),T2=ext(A2,P.h2+P.k2+P.f2,SEG.FT);
+  const J={H,S,Hd,E1,W1,E2,W2,K1,A1,T1,K2,A2,T2};
+  let dy;
+  if(fixedY!=null)dy=fixedY;else{let m=-1e9;for(const k in J){const y=J[k][1]+(k==='Hd'?SEG.H:0);if(y>m)m=y}dy=GROUND-1.5-m}
+  for(const k in J)J[k]=[J[k][0]+P.x,J[k][1]+dy];
+  return J;
+}
+const ANGLE_KEYS=['t','n','a1','e1','a2','e2','h1','k1','h2','k2','f1','f2'];
+function mix(a,b,u){const o={x:a.x+(b.x-a.x)*u};ANGLE_KEYS.forEach(k=>{const d=((b[k]-a[k]+540)%360)-180;o[k]=a[k]+d*u});return o}
+function poseAt(def,time){
+  const f=def.f,n=f.length;if(n===1)return f[0];
+  const d=def.d||1;
+  if(def.loop){const u=(time%(n*d))/d,i=Math.floor(u);return mix(f[i],f[(i+1)%n],u-i)}
+  const segs=2*(n-1),u=(time%(segs*d))/d,i=Math.floor(u),fr=u-i;
+  const idx=j=>j<n?j:segs-j;
+  const e=(1-Math.cos(Math.PI*fr))/2;
+  return mix(f[idx(i)],f[idx(i+1)],e);
+}
+const ln=(a,b,w,c,o=1)=>`<line x1="${a[0].toFixed(1)}" y1="${a[1].toFixed(1)}" x2="${b[0].toFixed(1)}" y2="${b[1].toFixed(1)}" stroke="${c}" stroke-width="${w}" stroke-linecap="round" opacity="${o}"/>`;
+const pl=(pts,w,c,o=1)=>`<polyline points="${pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ')}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" opacity="${o}"/>`;
+function propSVG(pr,J,time){
+  const L='var(--faint)',A='var(--accent)';
+  switch(pr.w){
+    case'wall':return ln([pr.x,14],[pr.x,GROUND],3,L);
+    case'bar':return ln([28,pr.y],[96,pr.y],3,L);
+    case'roller':return `<circle cx="${pr.x}" cy="${GROUND-6}" r="6" fill="var(--surface)" stroke="${A}" stroke-width="2.5"/>`;
+    case'ball':{const p=J[pr.at];return `<circle cx="${(p[0]+(pr.dx||0)).toFixed(1)}" cy="${(pr.at==='S'?p[1]+(pr.dy||0):GROUND-3).toFixed(1)}" r="3.5" fill="${A}"/>`}
+    case'bike':return `<circle cx="30" cy="78" r="12" fill="none" stroke="${L}" stroke-width="2"/><circle cx="92" cy="78" r="12" fill="none" stroke="${L}" stroke-width="2"/>${pl([[30,78],[52,48],[62,78],[30,78]],2,L)}${pl([[62,78],[80,46],[92,78]],2,L)}${ln([48,46],[58,46],3,L)}${ln([76,42],[86,42],3,L)}`;
+    case'water':{let d=`M0 ${pr.y}`;for(let x=0;x<=120;x+=10)d+=` Q${x+5} ${pr.y+Math.sin(time*2+x)*2.2} ${x+10} ${pr.y}`;return `<path d="${d}" fill="none" stroke="${A}" stroke-width="2" opacity=".8"/>`}
+    case'tub':return pl([[24,56],[28,GROUND],[100,GROUND],[104,56]],3,L);
+    case'band':{const a=pr.from?J[pr.from]:J.W1;return ln(a,pr.to,1.6,A)+`<circle cx="${pr.to[0]}" cy="${pr.to[1]}" r="2" fill="${A}"/>`}
+    case'strap':return ln(J.W1,J.T1,1.6,A);
+    case'bench':return pl([[34,J.H[1]+3],[72,J.H[1]+3]],4,L)+ln([38,J.H[1]+3],[38,GROUND],2.5,L)+ln([68,J.H[1]+3],[68,GROUND],2.5,L);
+    case'table':return pl([[14,J.H[1]+5],[106,J.H[1]+5]],4,L)+ln([20,J.H[1]+5],[20,GROUND],2.5,L)+ln([100,J.H[1]+5],[100,GROUND],2.5,L);
+    case'shower':{let s=ln([60,6],[76,6],3,L);for(let i=0;i<5;i++){const y=8+((time*40+i*17)%40);s+=ln([62+i*3,y],[62+i*3,y+5],1.5,A,.7)}return s}
+    case'steam':{let s='';for(let i=0;i<3;i++){const y=30-((time*8+i*9)%26);s+=`<circle cx="${28+i*8}" cy="${y.toFixed(1)}" r="2.5" fill="none" stroke="${L}" opacity="${(y/30).toFixed(2)}"/>`}return s}
+    case'boots':{const o=(.55+.35*Math.sin(time*2)).toFixed(2);return ln(J.K1,J.T1,8,A,o)+ln(J.K2,J.T2,8,A,o*.6)}
+    case'pads':{const o=(Math.sin(time*8)>0?1:.3);const m=[(J.H[0]+J.K1[0])/2,(J.H[1]+J.K1[1])/2-3];return `<rect x="${m[0]-3}" y="${m[1]-2}" width="6" height="3" rx="1" fill="${A}" opacity="${o}"/>`}
+  }
+  return'';
+}
+function pacerSVG(kind,time){
+  let r,label;
+  if(kind==='box'){const ph=Math.floor(time/4)%4,u=(time%4)/4;r=ph===0?14+16*u:ph===1?30:ph===2?30-16*u:14;label=['Inhale','Hold','Exhale','Hold'][ph]+' '+(4-Math.floor(time%4))}
+  else{const c=time%9;if(c<2){r=14+12*c/2;label='Inhale'}else if(c<3){r=26+4*(c-2);label='Inhale again'}else{r=30-16*(c-3)/6;label='Long exhale'}}
+  return `<circle cx="60" cy="44" r="${r.toFixed(1)}" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/><text x="60" y="88" text-anchor="middle" font-size="9" fill="var(--muted)" font-family="var(--f-mono)">${label}</text>`;
+}
+function figureSVG(id,time){
+  const def=ANIM[id];if(!def)return'';
+  if(def.pacer)return pacerSVG(def.pacer,time);
+  const P=poseAt(def,time),J=joints(P,def.y!=null?def.y-0:null);
+  if(def.y!=null){/* fixed hip height */const dy=def.y-J.H[1];for(const k in J)J[k][1]+=dy}
+  const props=def.props||[],front=['band','strap','boots','pads','ball'];
+  const back=props.filter(p=>!front.includes(p.w)).map(p=>propSVG(p,J,time)).join('');
+  const fr=props.filter(p=>front.includes(p.w)).map(p=>propSVG(p,J,time)).join('');
+  const F='var(--fg)',M='var(--muted)';
+  return `${ln([4,GROUND],[116,GROUND],1.5,'var(--line)')}${back}
+   ${pl([J.H,J.K2,J.A2,J.T2],4,M,.55)}${pl([J.S,J.E2,J.W2],3.6,M,.55)}
+   ${ln(J.H,J.S,5.5,F)}<circle cx="${J.Hd[0].toFixed(1)}" cy="${J.Hd[1].toFixed(1)}" r="${SEG.H}" fill="${F}"/>
+   ${pl([J.H,J.K1,J.A1,J.T1],4.4,F)}${pl([J.S,J.E1,J.W1],3.8,F)}${fr}`;
+}
+const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function drawFigures(now){
+  const t=now/1000;
+  document.querySelectorAll('svg[data-anim]').forEach(el=>{
+    if(reduceMotion&&el.dataset.drawn)return;
+    el.innerHTML=figureSVG(el.dataset.anim,reduceMotion?0:t+(+el.dataset.off||0));el.dataset.drawn=1;
+  });
+}
+function figLoop(now){drawFigures(now);requestAnimationFrame(figLoop)}
+const fig=(id,cls='fig')=>ANIM[id]?`<button class="${cls}" data-act="demo" data-v="${id}" aria-label="Watch demo"><svg data-anim="${id}" data-off="${(hash(id)%100)/37}" viewBox="0 0 120 96" aria-hidden="true"></svg></button>`:'';
+
+/* ============================== ONBOARDING ============================== */
+const OB_STEPS=['welcome','about','sport','position','level','training','competition','sleep','body','recovery','done'];
+function newDraft(){return{name:'',age:'',sex:'',heightCm:'',weightKg:'',sport:'',otherSport:'',positions:[],level:'',freq:6,duration:90,intensity:2,practiceDays:[0,1,2,3,4],practiceTime:'Afternoon',phase:'In-season',compDays:[5],nextComp:'',bed:'22:30',wake:'06:45',injuries:[],mobility:[],goals:[],methods:[],equipment:[]}}
+function obValid(step){
+  const d=UI.ob;
+  switch(OB_STEPS[step]){
+    case'about':return d.name.trim()&&+d.age>=10&&+d.age<=80&&+d.heightCm>100&&+d.weightKg>30;
+    case'sport':return!!d.sport&&(d.sport!=='other'||d.otherSport.trim());
+    case'level':return!!d.level;
+    case'training':return d.practiceDays.length>0;
+    default:return true;
+  }
+}
+function renderOnboarding(){
+  if(!UI.ob)UI.ob=newDraft();
+  const d=UI.ob,step=UI.obStep,name=OB_STEPS[step];
+  if(name==='welcome')return renderWelcome();
+  const pct=step/(OB_STEPS.length-1)*100;
+  const pressed=(arr,v)=>`aria-pressed="${arr.includes(v)}"`;
+  let html='';
+  if(name==='about'){
+    const imp=!metric();const inch=d.heightCm?Math.round(d.heightCm/2.54):'';
+    html=`<div><div class="eyebrow">Step 1 · You</div><h1 style="margin-top:10px">Let's start with the athlete.</h1><p class="lead">Age, sex and body size set your baselines for heart rate variability, resting heart rate, sleep need and sweat losses.</p></div>
+     <div class="grid g2"><div class="field"><label for="ob-name">Name</label><input class="input" id="ob-name" data-f="name" value="${esc(d.name)}" autocomplete="given-name" placeholder="First and last name"></div>
+      <div class="field"><label for="ob-age">Age</label><input class="input" id="ob-age" data-f="age" type="number" inputmode="numeric" value="${esc(d.age)}" placeholder="24"></div></div>
+     <div class="ob-section"><span class="flabel">Biological sex</span><div class="chips">${[['male','Male'],['female','Female'],['na','Prefer not to say']].map(([k,n])=>`<button data-act="obset" data-f="sex" data-v="${k}" aria-pressed="${d.sex===k}">${n}</button>`).join('')}</div><span class="small muted">Used only for physiological norms.</span></div>
+     <div class="ob-section"><div style="display:flex;justify-content:space-between;align-items:center"><span class="flabel">Height & weight</span><div class="seg"><button data-act="units" data-v="imperial" aria-pressed="${imp}">US</button><button data-act="units" data-v="metric" aria-pressed="${!imp}">Metric</button></div></div>
+      <div class="grid g2">${imp?`<div class="pair"><input class="input" id="ob-ft" data-f="ft" type="number" inputmode="numeric" placeholder="ft" aria-label="Feet" value="${inch?Math.floor(inch/12):''}"><input class="input" id="ob-in" data-f="in" type="number" inputmode="numeric" placeholder="in" aria-label="Inches" value="${inch!==''?inch%12:''}"></div>
+       <input class="input" id="ob-lb" data-f="lb" type="number" inputmode="decimal" placeholder="Weight (lb)" aria-label="Weight in pounds" value="${d.weightKg?Math.round(d.weightKg*2.2046):''}">`
+      :`<input class="input" id="ob-cm" data-f="cm" type="number" inputmode="numeric" placeholder="Height (cm)" aria-label="Height in cm" value="${d.heightCm?Math.round(d.heightCm):''}"><input class="input" id="ob-kg" data-f="kg" type="number" inputmode="decimal" placeholder="Weight (kg)" aria-label="Weight in kg" value="${d.weightKg?Math.round(d.weightKg):''}">`}</div></div>`;
+  }else if(name==='sport'){
+    html=`<div><div class="eyebrow">Step 2 · Sport</div><h1 style="margin-top:10px">What do you compete in?</h1><p class="lead">Your sport decides which joints and tissues take the most stress, and where your recovery work goes.</p></div>
+     <div class="sports">${Object.entries(SPORTS).map(([k,s])=>`<button data-act="sport" data-v="${k}" aria-pressed="${d.sport===k}"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${SPORT_ICON[k]}</svg><b>${s.n}</b></button>`).join('')}</div>
+     ${d.sport==='other'?`<div class="field"><label for="ob-other">Your sport</label><input class="input" id="ob-other" data-f="otherSport" value="${esc(d.otherSport)}" placeholder="e.g. Rowing, lacrosse, golf, cycling"></div>`:''}`;
+  }else if(name==='position'){
+    const s=SPORTS[d.sport];
+    html=`<div><div class="eyebrow">Step 3 · ${s.multi?'Events':'Position'}</div><h1 style="margin-top:10px">${s.multi?'Which events or disciplines?':'What position do you play?'}</h1><p class="lead">${s.multi?'Pick all that apply.':'A pitcher and a catcher need different recovery. So do a lineman and a receiver.'}</p></div>
+     ${s.pos.length?`<div class="chips">${s.pos.map(p=>`<button data-act="pos" data-v="${esc(p)}" ${pressed(d.positions,p)}>${esc(p)}</button>`).join('')}</div>`:`<div class="field"><label for="ob-posfree">Position or event</label><input class="input" id="ob-posfree" data-f="posfree" value="${esc(d.positions[0]||'')}" placeholder="e.g. Midfield, 200 IM, stroke seat"></div>`}`;
+  }else if(name==='level'){
+    html=`<div><div class="eyebrow">Step 4 · Level</div><h1 style="margin-top:10px">What level do you compete at?</h1><p class="lead">Sets your expected training age, baseline fitness and how aggressive your recommendations can be.</p></div>
+     <div class="choice">${LEVELS.map(l=>`<button data-act="obset" data-f="level" data-v="${l.k}" aria-pressed="${d.level===l.k}"><b>${l.n}</b><span>${l.d}</span></button>`).join('')}</div>`;
+  }else if(name==='training'){
+    html=`<div><div class="eyebrow">Step 5 · Training</div><h1 style="margin-top:10px">How do you train?</h1><p class="lead">This builds your planned workload so recovery is ready before you log a single session.</p></div>
+     <div class="grid g2"><div class="field"><span class="flabel">Sessions per week</span><span class="rangeval" id="v-freq">${d.freq}</span><input type="range" min="1" max="14" value="${d.freq}" data-f="freq" id="ob-freq" aria-label="Sessions per week"></div>
+      <div class="field"><span class="flabel">Typical session</span><span class="rangeval" id="v-duration">${d.duration} min</span><input type="range" min="20" max="240" step="5" value="${d.duration}" data-f="duration" id="ob-duration" aria-label="Typical session length in minutes"></div></div>
+     <div class="ob-section"><span class="flabel">Typical intensity</span><div class="chips">${INTENSITY.map((n,i)=>`<button data-act="obset" data-f="intensity" data-v="${i}" aria-pressed="${d.intensity===i}">${n}</button>`).join('')}</div></div>
+     <div class="ob-section"><span class="flabel">Practice days</span><div class="chips days">${DAYS.map((n,i)=>`<button data-act="day" data-f="practiceDays" data-v="${i}" ${pressed(d.practiceDays,i)}>${n}</button>`).join('')}</div></div>
+     <div class="ob-section"><span class="flabel">Usually train in the</span><div class="chips">${TIMES.map(n=>`<button data-act="obset" data-f="practiceTime" data-v="${n}" aria-pressed="${d.practiceTime===n}">${n}</button>`).join('')}</div></div>`;
+  }else if(name==='competition'){
+    html=`<div><div class="eyebrow">Step 6 · Competition</div><h1 style="margin-top:10px">When do you compete?</h1><p class="lead">Morrow plans backwards from competition: sharper the day before, flush the day after.</p></div>
+     <div class="ob-section"><span class="flabel">Season phase</span><div class="chips">${PHASES.map(n=>`<button data-act="obset" data-f="phase" data-v="${n}" aria-pressed="${d.phase===n}">${n}</button>`).join('')}</div></div>
+     <div class="ob-section"><span class="flabel">Usual competition days</span><div class="chips days">${DAYS.map((n,i)=>`<button data-act="day" data-f="compDays" data-v="${i}" ${pressed(d.compDays,i)}>${n}</button>`).join('')}</div><span class="small muted">Leave empty if it varies.</span></div>
+     <div class="field" style="max-width:320px"><label for="ob-next">Next competition (optional)</label><input class="input" id="ob-next" type="date" data-f="nextComp" value="${esc(d.nextComp)}"></div>`;
+  }else if(name==='sleep'){
+    const win=((parseT(d.wake)-parseT(d.bed)+1440)%1440)/60;const need=sleepNeed({age:+d.age});
+    html=`<div><div class="eyebrow">Step 7 · Sleep</div><h1 style="margin-top:10px">Your usual sleep schedule.</h1><p class="lead">Sleep is the largest driver of recovery. We'll plan your bedtime around your wake time and the load you carry.</p></div>
+     <div class="grid g2"><div class="field"><label for="ob-bed">Usual bedtime</label><input class="input" type="time" id="ob-bed" data-f="bed" value="${d.bed}"></div><div class="field"><label for="ob-wake">Usual wake time</label><input class="input" type="time" id="ob-wake" data-f="wake" value="${d.wake}"></div></div>
+     <div class="note ${win<need-.5?'warn':''}" id="sleepnote">That's a ${fmtH(win)} window. At ${d.age||'your age'}, athletes need about ${fmtH(need)} of actual sleep${win<need?', so you start most nights short.':'.'}</div>`;
+  }else if(name==='body'){
+    html=`<div><div class="eyebrow">Step 8 · Body</div><h1 style="margin-top:10px">Injuries and limitations.</h1><p class="lead">Active injuries are protected and worked around. Past ones become focus areas.</p></div>
+     <div class="ob-section"><span class="flabel">Current or past injuries</span><div class="chips">${INJ.map(i=>`<button data-act="inj" data-v="${i.k}" aria-pressed="${d.injuries.some(x=>x.area===i.k)}">${i.n}</button>`).join('')}</div>
+      ${d.injuries.map(x=>`<div class="injrow"><b>${INJ.find(i=>i.k===x.area).n}</b><div class="seg">${INJ_STATUS.map(([k,n])=>`<button data-act="injst" data-a="${x.area}" data-v="${k}" aria-pressed="${x.status===k}">${n}</button>`).join('')}</div></div>`).join('')}</div>
+     <div class="ob-section"><span class="flabel">Mobility limitations</span><div class="chips">${MOBILITY.map(([n])=>`<button data-act="multi" data-f="mobility" data-v="${esc(n)}" ${pressed(d.mobility,n)}>${n}</button>`).join('')}</div></div>`;
+  }else if(name==='recovery'){
+    html=`<div><div class="eyebrow">Step 9 · Recovery</div><h1 style="margin-top:10px">How you like to recover.</h1><p class="lead">Your goals and toolkit. Morrow only prescribes what you can actually do.</p></div>
+     <div class="ob-section"><span class="flabel">Goals <span class="muted">(pick up to 3)</span></span><div class="chips">${GOALS.map(n=>`<button data-act="multi" data-f="goals" data-v="${esc(n)}" data-max="3" ${pressed(d.goals,n)}>${n}</button>`).join('')}</div></div>
+     <div class="ob-section"><span class="flabel">Preferred methods</span><div class="chips">${METHODS.map(([k,n])=>`<button data-act="multi" data-f="methods" data-v="${k}" ${pressed(d.methods,k)}>${n}</button>`).join('')}</div></div>
+     <div class="ob-section"><span class="flabel">Equipment you can access</span><div class="chips">${EQUIP.map(([k,n])=>`<button data-act="multi" data-f="equipment" data-v="${k}" ${pressed(d.equipment,k)}>${n}</button>`).join('')}</div></div>`;
+  }else if(name==='done'){
+    const p=finalizeDraft(d);const f=focusRegions(p).slice(0,4);const s=SPORTS[p.sport];
+    html=`<div><div class="eyebrow">Ready</div><h1 style="margin-top:10px">Your recovery system is built, ${esc(p.name.split(' ')[0])}.</h1><p class="lead">Here's what Morrow will plan around. It sharpens with every check-in and every protocol you complete.</p></div>
+     <div class="panel"><div class="list">
+      <div class="row"><div class="body"><div class="t">${esc(p.sport==='other'?p.otherSport:s.n)}${p.positions.length?' · '+esc(p.positions.join(', ')):''}</div><div class="s">${LEVELS.find(l=>l.k===p.level)?.n} · ${p.phase} · ${p.freq} sessions/week</div></div></div>
+      <div class="row"><div class="body"><div class="t">Focus areas</div><div class="s">${f.map(x=>REGION_N[x.k]).join(', ')}</div></div></div>
+      <div class="row"><div class="body"><div class="t">Sleep target</div><div class="s">${fmtH(sleepNeed(p))} a night, waking ${fmtT(parseT(p.wake))}</div></div></div>
+      <div class="row"><div class="body"><div class="t">Daily fluid baseline</div><div class="s">${volStr(p.weightKg*35)} plus sweat losses on training days</div></div></div>
+      ${p.injuries.filter(i=>i.status==='active').length?`<div class="row"><div class="body"><div class="t">Protected</div><div class="s">${p.injuries.filter(i=>i.status==='active').map(i=>INJ.find(x=>x.k===i.area).n).join(', ')}</div></div></div>`:''}
+     </div></div>`;
+  }
+  const last=name==='done';
+  return `<div class="ob"><div class="ob-top"><span class="mark"></span><div class="progress" aria-hidden="true"><i style="width:${pct}%"></i></div><span class="mono small muted">${step}/${OB_STEPS.length-1}</span></div>
+   <div class="ob-body">${html}</div>
+   <div class="ob-foot"><button class="btn ghost" data-act="obback">${UI.editing?'Cancel':'Back'}</button><button class="btn primary" data-act="${last?'obfinish':'obnext'}" id="obnext" ${obValid(step)?'':'disabled'}>${last?'Open my dashboard':UI.editing&&name!=='sport'?'Save':name==='position'&&!UI.ob.positions.length?'Skip':'Continue'}</button></div></div>`;
+}
+function renderWelcome(){
+  return `<div class="ob"><div class="welcome">
+   <div><div class="brand" style="padding:0;margin-bottom:36px"><span class="mark"></span><b>MORROW</b></div>
+    <h1>Recover like it's part of the job.</h1>
+    <p class="lead">A 30-second morning check-in plus your training load. Morrow turns it into a recovery score and writes the day's plan for your sport, your position and your body. No watch or ring needed.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn primary" data-act="obnext">Build my profile</button><button class="btn ghost" data-act="sample">Preview with a sample athlete</button></div>
+    <p class="small muted" style="margin:16px 0 0">Tip: add this page to your phone's home screen. Steps are in your Profile after setup.</p>
+    <div class="points"><div><b>Readiness every morning</b>Sleep, soreness, energy and stress, weighed against your training load.</div><div><b>Built for your position</b>Mobility and protocols for the tissues your sport loads.</div><div><b>Learns what works</b>Tracks which methods actually move your numbers.</div></div>
+   </div>
+   <div class="preview" aria-hidden="true"><div style="display:flex;justify-content:space-between;align-items:center"><span class="eyebrow">Example readout</span><span class="chip good"><span class="dot"></span>Primed</span></div>
+    <div style="display:flex;justify-content:center">${ring(81,200,14)}</div>
+    <div class="vitals" style="margin-top:0"><div class="vital"><div class="eyebrow">Sleep</div><span class="num" style="font-size:22px">8:24</span></div><div class="vital"><div class="eyebrow">Soreness</div><span class="num" style="font-size:22px">Light</span></div><div class="vital"><div class="eyebrow">Energy</div><span class="num" style="font-size:22px">Great</span></div><div class="vital"><div class="eyebrow">Load</div><span class="num" style="font-size:22px">1.08</span></div></div>
+   </div></div></div>`;
+}
+function finalizeDraft(d){return{...d,name:d.name.trim(),age:+d.age,heightCm:+d.heightCm,weightKg:+d.weightKg,sex:d.sex||'na',level:d.level||'rec',freq:+d.freq,duration:+d.duration,positions:d.positions.filter(Boolean)}}
+function afterOb(){requestAnimationFrame(()=>document.querySelectorAll('.ring-arc[data-off]').forEach(el=>el.style.strokeDashoffset=el.dataset.off))}
+function refreshNext(){const b=$('#obnext');if(b&&b.dataset.act==='obnext')b.disabled=!obValid(UI.obStep)}
+
+function samplePlayer(){
+  const p={sample:true,name:'Jordan Ellis',age:26,sex:'male',heightCm:188,weightKg:93,sport:'football',otherSport:'',positions:['Wide receiver'],level:'pro',freq:6,duration:120,intensity:3,practiceDays:[0,1,2,3,4],practiceTime:'Morning',phase:'In-season',compDays:[6],nextComp:'',bed:'22:45',wake:'06:30',injuries:[{area:'hamstring',status:'managing'},{area:'ankle',status:'past'}],mobility:['Tight hip flexors','Limited ankle dorsiflexion'],goals:['Stay injury-free','Manage in-season fatigue','Improve sleep quality'],methods:['cold','compression','soft','mobility'],equipment:['foam','ball','gun','bands','plunge','sauna','boots','pool','therapist']};
+  const days={};const today=new Date();
+  for(let i=1;i<=12;i++){const k=keyOf(addDays(today,-i));const r=rng(hash('s'+k));const pool=['frquad','plunge','boots','9090','box','legsup','sauna','ktw','contrast','nsdr'];const done=pool.filter(()=>r()<.45);const lift=done.filter(x=>['boots','plunge','legsup','nsdr'].includes(x)).length;
+    days[k]={done,water:Math.round(2800+r()*1800),checkin:{sleepH:Math.round((6.4+r()*2.2)*4)/4,quality:clamp(Math.round(2+r()*3),1,5),soreness:clamp(Math.round(1.5+r()*3-lift*.3),1,5),energy:clamp(Math.round(2+r()*3),1,5),stress:clamp(Math.round(1+r()*3),1,5),sore:[]}}}
+  days[keyOf(today)]={water:1180,done:['box'],checkin:{sleepH:7.75,quality:4,soreness:3,energy:4,stress:2,sore:['hamstrings']}};
+  return{p,days};
+}
+
+/* ============================== EVENTS ============================== */
+document.addEventListener('click',e=>{
+  const el=e.target.closest('[data-act]');if(!el)return;
+  const a=el.dataset.act,v=el.dataset.v;
+  if(a==='scrim'&&e.target!==el)return;
+  const d=UI.ob;
+  switch(a){
+    case'tab':UI.tab=v;try{localStorage.setItem('morrow.tab',v)}catch(_){}render();window.scrollTo({top:0});break;
+    case'obnext':if(UI.editing&&OB_STEPS[UI.obStep]!=='sport'){S.profile={...finalizeDraft(UI.ob)};UI.editing=false;UI.ob=null;UI.obStep=0;persist();render();toast('Profile updated');break}if(UI.obStep===0){UI.ob=UI.ob||newDraft()}UI.obStep=Math.min(OB_STEPS.length-1,UI.obStep+1);render();window.scrollTo({top:0});break;
+    case'obback':if(UI.editing){UI.editing=false;S.profile=UI.editing0;render();break}UI.obStep=Math.max(0,UI.obStep-1);render();break;
+    case'obfinish':{const p=finalizeDraft(UI.ob);if(UI.editing){S.profile={...p}}else{S.profile=p;S.days=S.days||{}}UI.editing=false;UI.ob=null;UI.obStep=0;UI.tab='today';persist();render();window.scrollTo({top:0});break}
+    case'obset':{let val=v;if(el.dataset.f==='intensity')val=+v;d[el.dataset.f]=val;render();break}
+    case'sport':if(d.sport!==v){d.positions=[]}d.sport=v;render();break;
+    case'pos':{const s=SPORTS[d.sport];if(s.multi){d.positions=d.positions.includes(v)?d.positions.filter(x=>x!==v):[...d.positions,v]}else d.positions=d.positions[0]===v?[]:[v];render();break}
+    case'day':{const f=el.dataset.f,n=+v;d[f]=d[f].includes(n)?d[f].filter(x=>x!==n):[...d[f],n].sort();render();break}
+    case'multi':{const f=el.dataset.f,max=+el.dataset.max||99;if(d[f].includes(v))d[f]=d[f].filter(x=>x!==v);else if(d[f].length<max)d[f]=[...d[f],v];render();break}
+    case'inj':{if(d.injuries.some(x=>x.area===v))d.injuries=d.injuries.filter(x=>x.area!==v);else d.injuries=[...d.injuries,{area:v,status:'active'}];render();break}
+    case'injst':{const x=d.injuries.find(i=>i.area===el.dataset.a);if(x)x.status=v;render();break}
+    case'units':S.units=v;if(S.profile)persist();else{try{localStorage.setItem(LSK,JSON.stringify(S))}catch(_){}}render();break;
+    case'sample':{const {p,days}=samplePlayer();S={profile:p,days,units:S.units,updatedAt:0};UI.tab='today';render();break}
+    case'restart':S={profile:null,days:{},units:S.units,updatedAt:0};UI.ob=newDraft();UI.obStep=1;UI.chat=[];UI.brief=null;render();break;
+    case'editstep':UI.editing=true;UI.editing0=S.profile;UI.ob=JSON.parse(JSON.stringify({...newDraft(),...S.profile}));UI.obStep=+v;S.profile=null;render();window.scrollTo({top:0});break;
+    case'askreset':UI.confirmReset=true;render();break;
+    case'cancelreset':UI.confirmReset=false;render();break;
+    case'doreset':UI.confirmReset=false;S={profile:null,days:{},units:S.units,updatedAt:Date.now()};try{localStorage.removeItem(LSK)}catch(_){}if(store.mode==='cloud')store.chain=store.chain.then(()=>store.ref.delete()).catch(()=>{});UI.ob=null;UI.obStep=0;UI.chat=[];UI.brief=null;render();break;
+    case'sheet':openSheet(v);break;
+    case'close':case'scrim':UI.sheet=null;render();break;
+    case'ck':readCk();UI.ck[el.dataset.f]=+v;render();break;
+    case'cksore':{readCk();const a=UI.ck.sore||[];UI.ck.sore=a.includes(v)?a.filter(x=>x!==v):[...a,v];render();break}
+    case'saveck':{readCk();const c=UI.ck;const day=dayLog();day.checkin={...c,at:Date.now()};UI.sheet=null;UI.brief=null;persist();toast('Recovery updated');UI.tab='today';break}
+    case'savesess':{readSess();const day=dayLog();day.session={min:UI.sess.min,rpe:UI.sess.rpe};UI.sheet=null;persist();toast('Session logged');break}
+    case'savesweat':{readSweat();if(UI.sw.rate&&UI.sw.rate>0.1&&UI.sw.rate<4){S.profile.sweatRate=+UI.sw.rate.toFixed(2);UI.sheet=null;persist();toast('Sweat rate saved')}break}
+    case'water':{const day=dayLog();const ml=+v;day.water=(day.water||0)+ml;day.wlog=[...(day.wlog||[]),ml].slice(-40);UI.pour={ml,at:Date.now()};persist();render();clearTimeout(UI.pourT);UI.pourT=setTimeout(()=>{UI.pour=null;render()},1250);break}
+    case'wundo':{const day=dayLog();const l=day.wlog||[];if(l.length){day.water=Math.max(0,(day.water||0)-l.pop());day.wlog=l;persist();render()}break}
+    case'badd':{addBottle(+v);break}
+    case'bdel':{S.profile.bottles=bottlesOf(S.profile).filter(x=>x!==+v);persist();render();break}
+    case'nap':{const day=dayLog();day.nap=+v?(day.nap||0)+ +v:0;persist();render();break}
+    case'wind':{const day=dayLog();const w=day.wind||[];day.wind=w.includes(v)?w.filter(x=>x!==v):[...w,v];persist();render();break}
+    case'scfg':{let val=v;if(v==='true')val=true;else if(v==='false')val=false;setSleep({[el.dataset.k]:val});break}
+    case'rtoggle':{const r=JSON.parse(JSON.stringify(sleepCfg(S.profile).routine));r[+el.dataset.i].on=!r[+el.dataset.i].on;setSleep({routine:r});break}
+    case'rdel':{const r=sleepCfg(S.profile).routine.filter((_,i)=>i!==+el.dataset.i);setSleep({routine:r});break}
+    case'rreset':setSleep({routine:DEFAULT_ROUTINE});toast('Default steps restored');break;
+    case'done':{const day=dayLog();day.done=day.done||[];day.done=day.done.includes(v)?day.done.filter(x=>x!==v):[...day.done,v];persist();render();break}
+    case'timer':toggleTimer(v,+el.dataset.min);break;
+    case'demo':UI.demo=v;UI.sheet='demo';render();break;
+    case'brief':writeBrief();break;
+    case'ask':askCoach(v);break;
+    case'install':if(installEvt){installEvt.prompt();installEvt.userChoice.finally(()=>{installEvt=null;render()})}break;
+    case'installhide':try{localStorage.setItem('morrow.installHidden','1')}catch(_){}render();toast('Steps are saved in Profile');break;
+    case'copylink':{const inp=$('#applink');const done=()=>{el.textContent='Copied';setTimeout(()=>{el.textContent='Copy link'},1600)};
+      try{navigator.clipboard.writeText(APP_URL).then(done,()=>{inp.select();el.textContent='Press Ctrl/⌘+C'})}catch(_){inp.select();el.textContent='Press Ctrl/⌘+C'}break}
+    case'clearchat':UI.chat=[];UI.coachErr=null;render();break;
+  }
+});
+function setSleep(o){S.profile.sleep={...sleepCfg(S.profile),...o};persist();render()}
+function addBottle(ml){if(!(ml>=50&&ml<=2500)){toast('Enter a size between '+(metric()?'50 and 2500 ml':'2 and 84 oz'));return}const b=bottlesOf(S.profile);if(b.some(x=>Math.abs(x-ml)<5))return;if(b.length>=6){toast('Up to 6 bottles. Remove one first.');return}S.profile.bottles=[...b,Math.round(ml)];persist();render()}
+document.addEventListener('change',e=>{
+  const el=e.target;if(!S.profile||UI.ob)return;
+  const k=el.dataset.scfg;
+  if(k){const v=el.value;if(!v)return;
+    if(k==='wake'){S.profile.wake=v;const c=sleepCfg(S.profile);setSleep({wakeDays:c.wakeMode==='same'?Array(7).fill(v):c.wakeDays});return}
+    if(k==='wakeDay'){const d=[...sleepCfg(S.profile).wakeDays];d[+el.dataset.i]=v;setSleep({wakeDays:d});return}
+    setSleep({[k]:['goalH','latency','temp'].includes(k)?+v:v});return}
+  if(el.dataset.rbefore!=null){const r=JSON.parse(JSON.stringify(sleepCfg(S.profile).routine));r[+el.dataset.rbefore].before=+el.value;setSleep({routine:r})}
+});
+document.addEventListener('input',e=>{
+  {const el=e.target;if(el.dataset&&el.dataset.lbl){const o=document.getElementById(el.dataset.lbl);const v=+el.value;if(o)o.textContent=el.dataset.fmt==='h'?fmtH(v):el.dataset.fmt==='m'?v+' min':tempStr(v)}}
+  const el=e.target;
+  if(UI.ob&&el.dataset.f){
+    const d=UI.ob,f=el.dataset.f,v=el.value;
+    if(f==='ft'||f==='in'){const ft=+$('#ob-ft').value||0,inch=+$('#ob-in').value||0;d.heightCm=(ft*12+inch)*2.54||''}
+    else if(f==='lb')d.weightKg=v?+v/2.2046:'';
+    else if(f==='cm')d.heightCm=v?+v:'';
+    else if(f==='kg')d.weightKg=v?+v:'';
+    else if(f==='posfree')d.positions=v.trim()?[v]:[];
+    else if(f==='freq'||f==='duration'){d[f]=+v;const o=$('#v-'+f);if(o)o.textContent=f==='duration'?v+' min':v}
+    else d[f]=v;
+    if(f==='bed'||f==='wake'){const n=$('#sleepnote');if(n){const win=((parseT(d.wake)-parseT(d.bed)+1440)%1440)/60,need=sleepNeed({age:+d.age});n.textContent=`That's a ${fmtH(win)} window. At ${d.age||'your age'}, athletes need about ${fmtH(need)} of actual sleep${win<need?', so you start most nights short.':'.'}`;n.className='note '+(win<need-.5?'warn':'')}}
+    refreshNext();return;
+  }
+  if(el.id==='ck-sleep'){readCk();$('#ck-sleepv').textContent=fmtH(UI.ck.sleepH)}
+  if(el.id==='ss-rpe'||el.id==='ss-min'){readSess();$('#ss-rpev').textContent=UI.sess.rpe;$('#ss-load').textContent=`${UI.sess.min*UI.sess.rpe} AU load`}
+  if(el.id?.startsWith('sw-')){readSweat();$('#sw-out').innerHTML=sweatResult()||'Enter your numbers to see your sweat rate.'}
+  if(el.id==='ask'){el.style.height='auto';el.style.height=Math.min(140,el.scrollHeight)+'px'}
+});
+document.addEventListener('submit',e=>{
+  if(e.target.id==='addstep'){e.preventDefault();const tx=$('#ns-text').value.trim();if(!tx)return;const r=[...sleepCfg(S.profile).routine,{id:'c'+Date.now().toString(36),text:tx,before:+$('#ns-before').value,on:true,custom:true}];setSleep({routine:r});return}
+  if(e.target.id==='addbottle'){e.preventDefault();const v=+$('#nb-size').value;if(v)addBottle(metric()?v:v*29.574);return}if(e.target.id==='composer'){e.preventDefault();const q=$('#ask').value;askCoach(q)}});
+document.addEventListener('keydown',e=>{
+  if(e.target.id==='ask'&&e.key==='Enter'&&!e.shiftKey){e.preventDefault();askCoach(e.target.value)}
+  if(e.key==='Escape'&&UI.sheet){UI.sheet=null;render()}
+  if(e.key==='Enter'&&UI.ob&&e.target.matches('.ob input')){const b=$('#obnext');if(b&&!b.disabled)b.click()}
+});
+function dayLog(){const k=todayKey();return S.days[k]=S.days[k]||{}}
+function openSheet(k){
+  const day=S.days[todayKey()]||{};
+  if(k==='checkin')UI.ck={sleepH:Math.round(usualSleep(S.profile)*4)/4,quality:3,soreness:3,energy:3,stress:2,sore:[],...JSON.parse(JSON.stringify(day.checkin||{}))};
+  if(k==='session'){const pl=plannedLoad(S.profile,new Date());UI.sess=day.session?{...day.session}:{min:pl.min||S.profile.duration||60,rpe:Math.round(pl.rpe||6)}}
+  if(k==='sweat')UI.sw={min:60};
+  UI.sheet=k;render();
+}
+function readCk(){const v=$('#ck-sleep')?.value;if(v)UI.ck.sleepH=+v}
+function readSess(){UI.sess.min=+$('#ss-min').value||0;UI.sess.rpe=+$('#ss-rpe').value}
+function readSweat(){['pre','post','drank','min'].forEach(f=>{const v=$('#sw-'+f).value;UI.sw[f]=v===''?'':+v})}
+function toggleTimer(id,min){
+  const t=UI.timers[id];
+  if(t){clearInterval(t.iv);delete UI.timers[id];render();return}
+  const tm={left:min*60};tm.iv=setInterval(()=>{tm.left--;document.querySelectorAll('[data-tm="'+id+'"]').forEach(b=>b.textContent=fmtClock(Math.max(0,tm.left)));
+    if(tm.left<=0){clearInterval(tm.iv);delete UI.timers[id];const day=dayLog();day.done=day.done||[];if(!day.done.includes(id))day.done.push(id);persist();toast('Done. Nice work.')}},1000);
+  UI.timers[id]=tm;render();
+}
+
+render();
+requestAnimationFrame(figLoop);
+initCloud();
+</script>
+
+<script>
+if('serviceWorker' in navigator){addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}
+</script>
+</body>
+</html>
