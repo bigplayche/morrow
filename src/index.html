@@ -627,9 +627,9 @@ function render(){
   if(!S.profile){app.innerHTML=renderOnboarding();afterOb();return}
   const series=buildSeries(S.profile);
   const t=series[series.length-1];
-  if(!['today','sleep','hydrate','protocol','coach','profile'].includes(UI.tab))UI.tab='today';
-  const views={today:viewToday,sleep:viewSleep,hydrate:viewHydrate,protocol:viewProtocol,coach:viewCoach,profile:viewProfile};
-  const tabs=[['today','Today'],['sleep','Sleep'],['hydrate','Hydration'],['protocol','Protocol'],['coach','Coach'],['profile','Profile']];
+  if(!['today','sleep','hydrate','protocol','profile'].includes(UI.tab))UI.tab='today';
+  const views={today:viewToday,sleep:viewSleep,hydrate:viewHydrate,protocol:viewProtocol,profile:viewProfile};
+  const tabs=[['today','Today'],['sleep','Sleep'],['hydrate','Hydration'],['protocol','Protocol'],['profile','Profile']];
   app.innerHTML=`<div class="shell">
     <aside class="rail"><div class="brand"><span class="mark"></span><b>MORROW</b></div>
       <nav class="nav" aria-label="Sections">${tabs.map(([k,n])=>`<button data-act="tab" data-v="${k}" ${UI.tab===k?'aria-current="page"':''}>${ICONS[k]}<span>${n}</span></button>`).join('')}</nav>
@@ -707,7 +707,7 @@ function viewToday(series,t){
   </div>
 
   <section class="panel">
-   <div class="panel-head"><h2>Coach brief</h2>${SITE?'':UI.brief?.busy?'<span class="chip">Writing…</span>':`<button class="btn sm" data-act="brief">${UI.brief?.text?'Rewrite':'Write with AI'}</button>`}</div>
+   <div class="panel-head"><h2>Daily brief</h2>${SITE?'':UI.brief?.busy?'<span class="chip">Writing…</span>':`<button class="btn sm" data-act="brief">${UI.brief?.text?'Rewrite':'Write with AI'}</button>`}</div>
    ${UI.brief?.text?`<div class="msg ai" style="max-width:none">${md(UI.brief.text)}</div>`:`${UI.brief?.err?`<p class="note warn" style="margin:0 0 12px">${esc(UI.brief.err)}</p>`:''}<div class="list">${ruleBrief(p,t,plan,hp,tn).map(b=>`<div class="row"><div class="body"><div class="t">${b[0]}</div><div class="s">${b[1]}</div></div></div>`).join('')}</div>`}
   </section>
   ${trendsPanels(series)}`;
@@ -885,20 +885,6 @@ function insightsPanel(series){
 }
 
 /* ============================== VIEW: COACH ============================== */
-function viewCoach(series,t){
-  if(SITE)return `${head('AI recovery coach','Coach')}<section class="panel"><h2>The AI coach lives in the Claude version</h2><p class="muted" style="margin:8px 0 16px;max-width:60ch">The chat coach runs on Claude. Open Morrow on claude.ai to ask it questions. Everything else in this app works on its own, including your daily brief on the Today tab.</p><a class="btn primary" href="${ARTIFACT_URL}" target="_blank" rel="noopener">Open the coach on claude.ai</a></section>`;
-  const sugg=['Should I go hard today?','Competition in 2 days. How do I peak?','My hamstrings feel tight. What should I change?','Plan for a road trip with a late game','I slept badly. How do I adjust today?'];
-  return `${head('AI recovery coach','Coach',UI.chat.length?'<button class="btn sm ghost" data-act="clearchat">New conversation</button>':'')}
-  <section class="panel"><div class="chat" id="chat">
-   ${UI.chat.length?'':`<div class="msg ai">I can see your check-ins, sleep, training load, hydration, injuries and today's plan. Ask me anything about getting ready for your next session.</div>`}
-   ${UI.chat.map(m=>`<div class="msg ${m.role==='user'?'me':'ai'}">${m.role==='user'?esc(m.content):md(m.content)}</div>`).join('')}
-   ${UI.coachBusy&&!UI.chat.at(-1)?.content?'<div class="msg ai muted">Thinking…</div>':''}
-  </div></section>
-  ${UI.chat.length?'':`<div class="suggest">${sugg.map(s=>`<button data-act="ask" data-v="${esc(s)}">${esc(s)}</button>`).join('')}</div>`}
-  ${UI.coachErr?`<div class="note warn">${esc(UI.coachErr)}</div>`:''}
-  <form class="composer" id="composer"><textarea class="input" id="ask" rows="1" placeholder="Ask your coach…" aria-label="Message your coach"></textarea><button class="btn primary" type="submit" ${UI.coachBusy?'disabled':''}>Send</button></form>
-  <p class="small muted" style="margin:0">Coaching guidance, not medical advice. Pain that is sharp, getting worse or lasts more than a few days needs your medical staff.</p>`;
-}
 function md(s){
   const lines=esc(s).split('\n');let html='',inList=false;
   for(let l of lines){l=l.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
@@ -924,21 +910,6 @@ Style: direct, warm, confident, like a top performance coach talking to a pro. S
 Safety: you are not a doctor. For sharp, worsening or lasting pain, numbness, concussion symptoms or illness, tell them to see their medical staff. Respect active injuries.
 Athlete data (JSON):\n`;
 
-async function askCoach(q){
-  if(!q.trim()||UI.coachBusy)return;
-  UI.coachErr=null;UI.chat.push({role:'user',content:q.trim()});UI.coachBusy=true;render();scrollChat();
-  const sample=window.claude?.use?await window.claude.use('sample'):null;
-  if(!sample){UI.coachBusy=false;UI.chat.pop();UI.coachErr='The coach needs Claude access, which isn\'t available here. Open the app on claude.ai while signed in.';render();return}
-  const turns=UI.chat.map(m=>({role:m.role,content:m.content}));
-  turns[0]={role:'user',content:coachRules()+coachContext()+'\n\nAthlete: '+turns[0].content};
-  const reply={role:'assistant',content:''};UI.chat.push(reply);
-  try{
-    const {text}=await sample(turns,{cache:false,onText:({text})=>{reply.content=text;const els=document.querySelectorAll('#chat .msg.ai');const el=els[els.length-1];if(el){el.classList.remove('muted');el.innerHTML=md(text)}scrollChat()}});
-    reply.content=text;
-  }catch(e){if(!reply.content){UI.chat.pop();UI.chat.pop()}UI.coachErr=e?.code==='not_granted'?'Coach access was declined. You can allow it from this page\'s permissions.':e?.code==='rate_limited'?'Too many questions at once. Try again in a minute.':'The coach couldn\'t answer just now. Try again.'}
-  UI.coachBusy=false;render();scrollChat();
-}
-function scrollChat(){const c=$('#chat');if(c)c.lastElementChild?.scrollIntoView({block:'end',behavior:'smooth'})}
 async function writeBrief(){
   UI.brief={busy:true};render();
   const sample=window.claude?.use?await window.claude.use('sample'):null;
@@ -1338,12 +1309,10 @@ document.addEventListener('click',e=>{
     case'timer':toggleTimer(v,+el.dataset.min);break;
     case'demo':UI.demo=v;UI.sheet='demo';render();break;
     case'brief':writeBrief();break;
-    case'ask':askCoach(v);break;
     case'install':if(installEvt){installEvt.prompt();installEvt.userChoice.finally(()=>{installEvt=null;render()})}break;
     case'installhide':try{localStorage.setItem('morrow.installHidden','1')}catch(_){}render();toast('Steps are saved in Profile');break;
     case'copylink':{const inp=$('#applink');const done=()=>{el.textContent='Copied';setTimeout(()=>{el.textContent='Copy link'},1600)};
       try{navigator.clipboard.writeText(APP_URL).then(done,()=>{inp.select();el.textContent='Press Ctrl/⌘+C'})}catch(_){inp.select();el.textContent='Press Ctrl/⌘+C'}break}
-    case'clearchat':UI.chat=[];UI.coachErr=null;render();break;
   }
 });
 function setSleep(o){S.profile.sleep={...sleepCfg(S.profile),...o};persist();render()}
@@ -1375,13 +1344,11 @@ document.addEventListener('input',e=>{
   if(el.id==='ck-sleep'){readCk();$('#ck-sleepv').textContent=fmtH(UI.ck.sleepH)}
   if(el.id==='ss-rpe'||el.id==='ss-min'){readSess();$('#ss-rpev').textContent=UI.sess.rpe;$('#ss-load').textContent=`${UI.sess.min*UI.sess.rpe} AU load`}
   if(el.id?.startsWith('sw-')){readSweat();$('#sw-out').innerHTML=sweatResult()||'Enter your numbers to see your sweat rate.'}
-  if(el.id==='ask'){el.style.height='auto';el.style.height=Math.min(140,el.scrollHeight)+'px'}
 });
 document.addEventListener('submit',e=>{
   if(e.target.id==='addstep'){e.preventDefault();const tx=$('#ns-text').value.trim();if(!tx)return;const r=[...sleepCfg(S.profile).routine,{id:'c'+Date.now().toString(36),text:tx,before:+$('#ns-before').value,on:true,custom:true}];setSleep({routine:r});return}
-  if(e.target.id==='addbottle'){e.preventDefault();const v=+$('#nb-size').value;if(v)addBottle(metric()?v:v*29.574);return}if(e.target.id==='composer'){e.preventDefault();const q=$('#ask').value;askCoach(q)}});
+  if(e.target.id==='addbottle'){e.preventDefault();const v=+$('#nb-size').value;if(v)addBottle(metric()?v:v*29.574);return}});
 document.addEventListener('keydown',e=>{
-  if(e.target.id==='ask'&&e.key==='Enter'&&!e.shiftKey){e.preventDefault();askCoach(e.target.value)}
   if(e.key==='Escape'&&UI.sheet){UI.sheet=null;render()}
   if(e.key==='Enter'&&UI.ob&&e.target.matches('.ob input')){const b=$('#obnext');if(b&&!b.disabled)b.click()}
 });
