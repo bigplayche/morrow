@@ -1,4 +1,4 @@
-"""Builds the GitHub Pages version of Morrow from index.html into ../morrow-site."""
+"""Builds the GitHub Pages index.html (repo root) from src/index.html."""
 import pathlib
 src = pathlib.Path(__file__).with_name("index.html").read_text()
 out = pathlib.Path(__file__).parent.parent
